@@ -42,3 +42,5 @@ def predict(payload: PredictPayload):
         "note": "Heavy ML prediction is not enabled on Vercel lightweight backend yet",
         "input_received": payload.data,
     }
+
+# trigger redeploy
