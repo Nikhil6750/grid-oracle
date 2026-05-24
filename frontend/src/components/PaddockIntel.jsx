@@ -74,27 +74,27 @@ function PaddockIntel() {
 
       <div className="news-block">
         <article className="news-item lead">
-          <div className="news-meta"><span className="news-kicker">The Story</span><span className="news-num">01</span></div>
-          <h3 className="news-headline">Antonelli's rookie surge rewrites Mercedes' championship math</h3>
-          <p className="news-body">Three rounds in, the 19-year-old Italian has back-to-back wins and sits atop the drivers' table. Wolff has already shifted team orders mid-weekend.</p>
+          <div className="news-meta"><span className="news-kicker">Team Orders</span><span className="news-num">01</span></div>
+          <h3 className="news-headline">Russell vs Antonelli: Mercedes' civil war reaches boiling point in Canada</h3>
+          <p className="news-body">Russell won the Sprint after a controversial clash with Antonelli, who was told to hold position. Wolff now faces his toughest call of the season heading into Sunday's race.</p>
         </article>
         
         <article className="news-item neutral">
-          <div className="news-meta"><span className="news-kicker">Engine Wars</span><span className="news-num">02</span></div>
-          <h3 className="news-headline">Red Bull's new PU is down 15hp to Mercedes, paddock sources say</h3>
-          <p className="news-body">Despite the full Ford works programme, Red Bull's 2026 power unit appears weakest on the grid. Verstappen's P5 in Japan came from chassis, not pace.</p>
+          <div className="news-meta"><span className="news-kicker">Title Race</span><span className="news-num">02</span></div>
+          <h3 className="news-headline">Antonelli leads by 18 points but Russell is closing fast</h3>
+          <p className="news-body">After four rounds, ANT heads RUS by 18 points with Russell on pole for today's Canadian GP. McLaren's Norris is 47 back but showed race pace in Miami.</p>
         </article>
 
         <article className="news-item neutral">
-          <div className="news-meta"><span className="news-kicker">Debut</span><span className="news-num">03</span></div>
-          <h3 className="news-headline">Cadillac goal is simple: finish races, learn fast, build for 2029</h3>
-          <p className="news-body">GM's eleventh team runs Ferrari PUs until its in-house unit is ready. Herta confirmed for four FP1 outings this year.</p>
+          <div className="news-meta"><span className="news-kicker">Weather</span><span className="news-num">03</span></div>
+          <h3 className="news-headline">Rain chaos predicted for Montreal — Verstappen warns of 'carnage'</h3>
+          <p className="news-body">Wet conditions forecast for Sunday's race. Verstappen, who qualified P6, says unpredictable weather could shake up the entire order at Circuit Gilles Villeneuve.</p>
         </article>
 
         <article className="news-item">
-          <div className="news-meta"><span className="news-kicker">Calendar</span><span className="news-num">04</span></div>
-          <h3 className="news-headline">FIA confirms Bahrain and Saudi cancellations, no replacements</h3>
-          <p className="news-body">Iran war fallout leaves the season at 23 rounds, Australia to Abu Dhabi. Feeder series affected too.</p>
+          <div className="news-meta"><span className="news-kicker">Grid</span><span className="news-num">04</span></div>
+          <h3 className="news-headline">Hamilton under investigation again after Canadian GP qualifying</h3>
+          <p className="news-body">FIA stewards launched multiple post-qualifying investigations including one involving Hamilton. Russell starts P1, Antonelli P2, Norris P3, Piastri P4.</p>
         </article>
       </div>
     </div>
