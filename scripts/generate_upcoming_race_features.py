@@ -7,14 +7,21 @@ from datetime import datetime
 import pandas as pd
 
 # STEP 1 — Parse arguments
-parser = argparse.ArgumentParser(description="Generate pre-weekend feature rows for an upcoming race.")
+parser = argparse.ArgumentParser(description="Generate feature rows for an upcoming race.")
 parser.add_argument("--season", type=int, required=True, help="Target season (e.g., 2026)")
 parser.add_argument("--round", type=int, required=True, help="Target round (e.g., 5)")
+parser.add_argument(
+    "--stage",
+    choices=["pre_weekend", "post_qualifying", "post_sprint"],
+    default="pre_weekend",
+    help="Prediction stage to generate for the target race",
+)
 parser.add_argument("--force", action="store_true", help="Overwrite existing rows if present")
 args = parser.parse_args()
 
 target_season = args.season
 target_round = args.round
+target_stage = args.stage
 force = args.force
 
 # STEP 2 — Resolve project root
@@ -78,10 +85,10 @@ if parquet_path.exists():
     existing = pd.read_parquet(parquet_path)
     mask = (existing['season'] == target_season) & \
            (existing['round'] == target_round) & \
-           (existing['prediction_stage'] == 'pre_weekend')
+           (existing['prediction_stage'] == target_stage)
     
     if mask.any() and not force:
-        print(f"pre_weekend features already exist for {target_season} R{target_round}. Use --force to overwrite.")
+        print(f"{target_stage} features already exist for {target_season} R{target_round}. Use --force to overwrite.")
         sys.exit(0)
 else:
     existing = pd.DataFrame()
@@ -175,8 +182,10 @@ r_laps = loader.load_session_laps('R')
 tsb = TeamStrategyFeatureBuilder(r_laps, r_df_augmented)
 strategy_feats_all = tsb.build_features()
 
-q_laps = loader.load_session_laps('Q')
-qlb = QualifyingLapFeatureBuilder(q_laps, q_df)
+q_laps_all = loader.load_session_laps('Q')
+q_laps = filter_leakage(q_laps_all) if target_stage == 'pre_weekend' else q_laps_all
+q_results_for_laps = q_df if target_stage == 'pre_weekend' else q_df_all
+qlb = QualifyingLapFeatureBuilder(q_laps, q_results_for_laps)
 quali_lap_feats_all = qlb.build_features()
 
 if not weather_index.empty:
@@ -249,6 +258,34 @@ except Exception as e:
     print(f"[WARN] News feature injection failed (non-fatal): {e}")
 
 # STEP 12 — Ensure qualifying and sprint missing columns
+if target_stage != 'pre_weekend':
+    from src.feature_engineering.weekend_features import WeekendFeatureBuilder
+
+    target_q_df = q_df_all[
+        (q_df_all['season'] == target_season) &
+        (q_df_all['round'] == target_round)
+    ]
+    if target_q_df.empty:
+        print(f"No Q_results.parquet rows found for {target_season} R{target_round}; cannot generate {target_stage} features.")
+        sys.exit(1)
+
+    wb = WeekendFeatureBuilder(pd.DataFrame(), pd.DataFrame(), pd.DataFrame())
+    df = wb.build_post_qualifying(df, target_q_df)
+
+    if target_stage == 'post_sprint':
+        target_s_df = s_df_all[
+            (s_df_all['season'] == target_season) &
+            (s_df_all['round'] == target_round)
+        ]
+        if target_s_df.empty:
+            print(f"No S_results.parquet rows found for {target_season} R{target_round}; cannot generate post_sprint features.")
+            sys.exit(1)
+        df = wb.build_post_sprint(df, target_s_df)
+
+    if df.empty:
+        print(f"No {target_stage} rows generated for {target_season} R{target_round}.")
+        sys.exit(1)
+
 from src.feature_engineering.feature_store import FeatureStore
 fs = FeatureStore()
 df = fs._ensure_qualifying_columns(df)
@@ -282,7 +319,7 @@ if not existing.empty:
     if force:
         mask = (existing['season'] == target_season) & \
                (existing['round'] == target_round) & \
-               (existing['prediction_stage'] == 'pre_weekend')
+               (existing['prediction_stage'] == target_stage)
         existing = existing[~mask]
 
     combined = pd.concat([existing, df], ignore_index=True)
@@ -296,5 +333,5 @@ else:
 combined.to_parquet(parquet_path)
 
 drivers_list = sorted(df['driver_code'].dropna().unique().tolist())
-print(f"Added {len(df)} pre_weekend feature rows for {target_season} R{target_round} ({event_name}) to race_features.parquet")
+print(f"Added {len(df)} {target_stage} feature rows for {target_season} R{target_round} ({event_name}) to race_features.parquet")
 print(f"Drivers: {drivers_list}")

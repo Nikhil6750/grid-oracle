@@ -45,27 +45,32 @@ def main():
     else:
         round_num = args.round
 
-    # Detect best available stage
-    session_dir = ROOT_DIR / f"data/processed/sessions/season={season}/round={round_num:02d}"
-    has_sprint   = (session_dir / "S_results.parquet").exists()
-    has_quali    = (session_dir / "Q_results.parquet").exists()
-    stage = 'post_sprint' if has_sprint else ('post_qualifying' if has_quali else 'pre_weekend')
-    print(f"Prediction stage: {stage}")
-
     # Step 1: Ingest any new sessions
     run_step(['python', 'scripts/ingest_latest_session.py',
               '--season', str(season), '--round', str(round_num)],
              "Ingest latest session data")
 
+    # Detect best available stage after ingestion so newly downloaded sessions count.
+    session_dir = ROOT_DIR / f"data/processed/sessions/season={season}/round={round_num:02d}"
+    has_sprint   = (session_dir / "S_results.parquet").exists()
+    has_quali    = (session_dir / "Q_results.parquet").exists()
+    stage = 'post_sprint' if (has_sprint and has_quali) else ('post_qualifying' if has_quali else 'pre_weekend')
+    print(f"Prediction stage: {stage}")
+
     # Step 2: Generate/update features for the target round
     if stage == 'pre_weekend':
         run_step(['python', 'scripts/generate_upcoming_race_features.py',
-                  '--season', str(season), '--round', str(round_num), '--force'],
+                  '--season', str(season), '--round', str(round_num),
+                  '--stage', stage, '--force'],
                  "Generate pre_weekend features")
     else:
         run_step(['python', 'scripts/build_features.py',
                   '--season', str(season), '--stage', stage],
                  f"Build {stage} features")
+        run_step(['python', 'scripts/generate_upcoming_race_features.py',
+                  '--season', str(season), '--round', str(round_num),
+                  '--stage', stage, '--force'],
+                 f"Generate upcoming {stage} features")
 
     # Step 3: Optional retrain
     if args.retrain:

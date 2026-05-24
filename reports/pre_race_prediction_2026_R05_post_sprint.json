@@ -1,0 +1,83 @@
+{
+  "season": 2026,
+  "round": 5,
+  "stage": "post_sprint",
+  "pole_sitter_candidate": null,
+  "race_winner_candidate": "ANT",
+  "podium_ranking": [
+    {
+      "driver": "ANT",
+      "probability": 0.5312
+    },
+    {
+      "driver": "NOR",
+      "probability": 0.5312
+    },
+    {
+      "driver": "PIA",
+      "probability": 0.5312
+    },
+    {
+      "driver": "RUS",
+      "probability": 0.5312
+    },
+    {
+      "driver": "VER",
+      "probability": 0.5312
+    }
+  ],
+  "podium_position_prediction": {},
+  "top10_ranking": [
+    {
+      "driver": "ANT",
+      "probability": 0.5
+    },
+    {
+      "driver": "NOR",
+      "probability": 0.5
+    },
+    {
+      "driver": "PIA",
+      "probability": 0.5
+    },
+    {
+      "driver": "RUS",
+      "probability": 0.5
+    },
+    {
+      "driver": "VER",
+      "probability": 0.5
+    },
+    {
+      "driver": "HAM",
+      "probability": 0.5
+    },
+    {
+      "driver": "COL",
+      "probability": 0.5
+    },
+    {
+      "driver": "LEC",
+      "probability": 0.5
+    },
+    {
+      "driver": "SAI",
+      "probability": 0.5
+    },
+    {
+      "driver": "ALB",
+      "probability": 0.5
+    }
+  ],
+  "models_used": {
+    "race_finish": "advanced",
+    "podium": "advanced",
+    "top10": "advanced"
+  },
+  "warnings": [
+    "race_finish advanced MAE (5.621) worse than naive (3.818)",
+    "podium advanced ROC AUC (0.500) worse than naive (0.947)",
+    "top10 advanced ROC AUC (0.500) worse than naive (0.863)"
+  ],
+  "prediction_records_path": "reports/advanced_predictions.parquet"
+}

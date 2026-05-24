@@ -26,16 +26,7 @@ def ingest_session(season: int, round_num: int, session_type: str, force: bool =
     print(f"[{season} R{round_num}] Ingesting session: {session_type}")
     ingestor = HistoricalIngestor(force_overwrite=force)
     try:
-        if session_type == 'R':
-            ingestor.ingest_race(season, round_num)
-        elif session_type == 'Q':
-            ingestor.ingest_qualifying(season, round_num)
-        elif session_type == 'S':
-            ingestor.ingest_sprint(season, round_num)
-        elif session_type == 'SQ':
-            print("Sprint Qualifying natively ingested within sprint logic or handled if available.")
-            # Depending on base historical_ingestor logic, Sprint Quali might not be separate
-            # For our current scope, we ignore if unsupported or just run it via ingest_sprint
+        ingestor.ingest_event(season, round_num, [session_type])
         print(f"[{season} R{round_num}] Session {session_type} ingestion complete.")
     except Exception as e:
         print(f"[WARN] Failed to ingest {session_type}: {e}")

@@ -118,7 +118,17 @@
         "qualifying_gap_to_pole_missing",
         "teammate_qualifying_delta_missing",
         "team_qualifying_rank_missing",
-        "driver_qualified_ahead_of_teammate_missing"
+        "driver_qualified_ahead_of_teammate_missing",
+        "news_grid_penalty_positions",
+        "news_grid_penalty_flag",
+        "news_wet_race_probability",
+        "news_safety_car_probability",
+        "news_data_available",
+        "news_grid_penalty_positions_missing",
+        "news_grid_penalty_flag_missing",
+        "news_wet_race_probability_missing",
+        "news_safety_car_probability_missing",
+        "news_data_available_missing"
     ],
     "top10_post_qualifying": [
         "team",
@@ -239,7 +249,17 @@
         "qualifying_gap_to_pole_missing",
         "teammate_qualifying_delta_missing",
         "team_qualifying_rank_missing",
-        "driver_qualified_ahead_of_teammate_missing"
+        "driver_qualified_ahead_of_teammate_missing",
+        "news_grid_penalty_positions",
+        "news_grid_penalty_flag",
+        "news_wet_race_probability",
+        "news_safety_car_probability",
+        "news_data_available",
+        "news_grid_penalty_positions_missing",
+        "news_grid_penalty_flag_missing",
+        "news_wet_race_probability_missing",
+        "news_safety_car_probability_missing",
+        "news_data_available_missing"
     ],
     "podium_pre_weekend": [
         "team",
@@ -702,7 +722,17 @@
         "qualifying_gap_to_pole_missing",
         "teammate_qualifying_delta_missing",
         "team_qualifying_rank_missing",
-        "driver_qualified_ahead_of_teammate_missing"
+        "driver_qualified_ahead_of_teammate_missing",
+        "news_grid_penalty_positions",
+        "news_grid_penalty_flag",
+        "news_wet_race_probability",
+        "news_safety_car_probability",
+        "news_data_available",
+        "news_grid_penalty_positions_missing",
+        "news_grid_penalty_flag_missing",
+        "news_wet_race_probability_missing",
+        "news_safety_car_probability_missing",
+        "news_data_available_missing"
     ],
     "qualifying_pre_weekend": [
         "team",

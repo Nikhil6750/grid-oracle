@@ -7,70 +7,70 @@
   "podium_ranking": [
     {
       "driver": "ANT",
-      "probability": 0.0737
+      "probability": 0.2461
     },
     {
       "driver": "RUS",
-      "probability": 0.0534
-    },
-    {
-      "driver": "LEC",
-      "probability": 0.0482
-    },
-    {
-      "driver": "NOR",
-      "probability": 0.0422
+      "probability": 0.2047
     },
     {
       "driver": "HAM",
-      "probability": 0.0398
+      "probability": 0.169
+    },
+    {
+      "driver": "NOR",
+      "probability": 0.1289
+    },
+    {
+      "driver": "LEC",
+      "probability": 0.1228
     }
   ],
   "podium_position_prediction": {
     "P1": "ANT",
     "P2": "NOR",
-    "P3": "HAM"
+    "P3": "NOR"
   },
   "top10_ranking": [
     {
-      "driver": "GAS",
-      "probability": 0.7706
+      "driver": "VER",
+      "probability": 0.9097
     },
     {
       "driver": "PIA",
-      "probability": 0.767
-    },
-    {
-      "driver": "VER",
-      "probability": 0.7441
-    },
-    {
-      "driver": "NOR",
-      "probability": 0.7441
-    },
-    {
-      "driver": "LEC",
-      "probability": 0.7183
-    },
-    {
-      "driver": "ANT",
-      "probability": 0.7183
+      "probability": 0.8922
     },
     {
       "driver": "RUS",
-      "probability": 0.7103
+      "probability": 0.8759
+    },
+    {
+      "driver": "ANT",
+      "probability": 0.8759
+    },
+    {
+      "driver": "NOR",
+      "probability": 0.8748
     },
     {
       "driver": "HAM",
-      "probability": 0.6893
+      "probability": 0.8546
     },
     {
-      "driver": "LAW",
-      "probability": 0.4866
+      "driver": "LEC",
+      "probability": 0.8345
+    },
+    {
+      "driver": "GAS",
+      "probability": 0.8028
+    },
+    {
+      "driver": "SAI",
+      "probability": 0.6558
     },
     {
       "driver": "OCO",
-      "probability": 0.4689
+      "probability": 0.6217
     }
   ],
   "models_used": {

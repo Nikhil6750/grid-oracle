@@ -230,13 +230,24 @@ class FeatureStore:
                 
         if stage_filter:
             if stage_filter == 'pre_weekend':
-                race_features = pd.DataFrame()
+                race_features = race_features[
+                    race_features['prediction_stage'] == 'pre_weekend'
+                ] if not race_features.empty else race_features
                 sprint_features = pd.DataFrame()
             elif stage_filter == 'post_qualifying':
                 qualifying_features = pd.DataFrame()
+                race_features = race_features[
+                    race_features['prediction_stage'] == 'post_qualifying'
+                ] if not race_features.empty else race_features
+                sprint_features = sprint_features[
+                    sprint_features['prediction_stage'] == 'post_qualifying'
+                ] if not sprint_features.empty else sprint_features
             elif stage_filter == 'post_sprint':
                 qualifying_features = pd.DataFrame()
-                race_features = pd.DataFrame()
+                race_features = race_features[
+                    race_features['prediction_stage'] == 'post_sprint'
+                ] if not race_features.empty else race_features
+                sprint_features = pd.DataFrame()
                 
         # 7. Validate Leakage
         validator = LeakageValidator(targets, qualifying_features, race_features, sprint_features)
