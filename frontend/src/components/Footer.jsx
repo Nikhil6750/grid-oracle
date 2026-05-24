@@ -29,10 +29,11 @@ function Footer() {
         <div className="golive-card">
           <div className="golive-stripe" aria-hidden="true"></div>
           <div className="golive-left">
-            <div className="golive-eyebrow">§ 04 · Go Live</div>
-            <h2 className="golive-title">Make it <em>auto-update</em>.</h2>
+            <div className="golive-eyebrow">§ 04 · Race Intel</div>
+            <h2 className="golive-title">Built with <em>PitWall AI</em>.</h2>
             <p className="golive-lede">
-              Right now this dashboard is a snapshot — you update the numbers after each race. When you're ready, there are three paths to real-time data pulled straight from the F1 API after every checkered flag.
+              Predictions powered by a custom ML pipeline trained on FastF1 data from 2018–2026. 
+              Models retrain after every qualifying session. Post-qualifying accuracy: 96.9% AUC.
             </p>
           </div>
           <div className="golive-right">
@@ -40,56 +41,29 @@ function Footer() {
             <div className="golive-step">
               <div className="golive-step-num">01</div>
               <div>
-                <div className="golive-step-head">Manual <em>· 2 min after each race</em></div>
-                <div className="golive-step-body">
-                  Open <code>index.html</code> in any text editor. Find a driver's name (e.g. <code>Antonelli</code>), update the number a few lines below it (e.g. <code>72</code> &rarr; <code>97</code>). Save. Redeploy.
-                </div>
+                <div className="golive-step-head">Data <em>· FastF1 + 8 seasons</em></div>
+                <div className="golive-step-body">Ingests lap times, qualifying gaps, weather, wet skill, team strategy and driver form from 2018 to present.</div>
               </div>
             </div>
 
             <div className="golive-step">
               <div className="golive-step-num">02</div>
               <div>
-                <div className="golive-step-head">Semi-auto <em>· 30 sec via AI</em></div>
-                <div className="golive-step-body">
-                  Paste the file into Claude or ChatGPT with this prompt &mdash; it does the rest.
-                </div>
-                <details className="golive-details">
-                  <summary>show the prompt</summary>
-                  <pre className="golive-pre">{`Update my F1 dashboard after the [RACE NAME] GP.
-
-New driver standings (top 10):
-1. Antonelli — 97
-2. Russell — 84
-3. Leclerc — 68
-...
-
-New constructor totals:
-Mercedes 181, Ferrari 124, McLaren ...
-
-Update the countdown to the next race.
-Return the COMPLETE HTML in one code block.`}</pre>
-                </details>
+                <div className="golive-step-head">Models <em>· HistGradientBoosting</em></div>
+                <div className="golive-step-body">Separate classifiers for podium probability, exact P1/P2/P3 ranking, and top 10 finishers. LeakageGuard prevents data contamination.</div>
               </div>
             </div>
 
             <div className="golive-step">
               <div className="golive-step-num">03</div>
               <div>
-                <div className="golive-step-head">Full auto <em>· public API, no manual edits</em></div>
-                <div className="golive-step-body">
-                  Hook the dashboard to a public F1 data API. Standings update on their own once a race is over.
-                </div>
-                <details className="golive-details">
-                  <summary>show the setup</summary>
-                  <p className="golive-detail-p"><strong>Easiest path &middot; Jolpica F1.</strong> Fetch from <code>https://api.jolpi.ca/ergast/f1/current/driverStandings.json</code> and map to your React state.</p>
-                  <p className="golive-detail-p"><strong>Python path &middot; FastF1.</strong> Use FastF1 to write a JSON snapshot, commit it via a GitHub Action, and fetch it here.</p>
-                </details>
+                <div className="golive-step-head">Pipeline <em>· FastAPI + React</em></div>
+                <div className="golive-step-body">Predictions served via FastAPI backend. Frontend auto-loads latest prediction on page open.</div>
               </div>
             </div>
 
             <div className="golive-cta-row">
-              <a className="golive-cta golive-cta-ghost" href="https://api.jolpi.ca/ergast/" target="_blank" rel="noreferrer">Jolpica F1 API</a>
+              <a className="golive-cta golive-cta-ghost" href="https://github.com/Nikhil6750/grid-oracle" target="_blank" rel="noreferrer">GitHub</a>
               <a className="golive-cta golive-cta-ghost" href="https://docs.fastf1.dev/" target="_blank" rel="noreferrer">FastF1</a>
             </div>
 
@@ -118,17 +92,17 @@ Return the COMPLETE HTML in one code block.`}</pre>
             <header className="colo-head">
               <div className="colo-eyebrow">◆ Credits</div>
               <h2 className="colo-title">The <em>Pit Wall</em></h2>
-              <p className="colo-sub">First made for my friend Shreya. Now yours, too.</p>
+              <p className="colo-sub">Built by Nikhil · F1 fan · ML enthusiast</p>
             </header>
 
             <div className="colo-rule" aria-hidden="true"></div>
 
             <section className="colo-author-sec">
               <p className="colo-author-bio">
-                I'm <strong>Anirudh</strong>. I make dashboards for the things I love — cricket, Formula 1, whatever my friends fall asleep scrolling.
+                I'm <strong>Nikhil</strong>. I built PitWall AI — an ML-powered F1 prediction engine trained on 8 seasons of FastF1 data. This dashboard is the frontend.
               </p>
               <div className="colo-links">
-                <a className="colo-btn" href="https://anirudhgoel.xyz" target="_blank" rel="noreferrer">anirudhgoel.xyz <span className="colo-arr">→</span></a>
+                <a className="colo-btn" href="https://github.com/Nikhil6750/grid-oracle" target="_blank" rel="noreferrer">GitHub · grid-oracle <span className="colo-arr">→</span></a>
               </div>
             </section>
 
