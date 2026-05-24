@@ -110,7 +110,7 @@ function PredictionPanel() {
               </div>
               <div className="pred-meta-card">
                 <div className="pred-meta-label">Race Winner Candidate</div>
-                <div className="pred-meta-val">{result.race_winner_candidate || (result.podium_ranking && result.podium_ranking.length > 0 && result.podium_ranking[0].driver) || 'TBD'}</div>
+                <div className="pred-meta-val">{(result.podium_ranking && result.podium_ranking[0]?.driver) || 'TBD'}</div>
               </div>
               <div className="pred-meta-card" style={{ display: 'none' }}>
                 <div className="pred-meta-label">Models Used</div>
