@@ -38,21 +38,6 @@ function RaceHero() {
             <h2 className="race-name">Canadian <em>Grand Prix</em></h2>
             <div className="race-circuit"><strong>Circuit Gilles Villeneuve</strong> · Montreal</div>
             <div className="race-circuit">Round 5 of 23 · 70 laps · 305.270 km</div>
-
-            <div className="race-stats">
-              <div className="race-stat">
-                <div className="race-stat-label">Lap Record</div>
-                <div className="race-stat-val">1:13.078</div>
-              </div>
-              <div className="race-stat">
-                <div className="race-stat-label">Pole Sitter</div>
-                <div className="race-stat-val">G. Russell</div>
-              </div>
-              <div className="race-stat">
-                <div className="race-stat-label">Dates</div>
-                <div className="race-stat-val">May 25, 2026</div>
-              </div>
-            </div>
           </div>
 
           <div className="race-right">
