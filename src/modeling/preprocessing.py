@@ -92,9 +92,12 @@ class StageFeatureDropper(BaseEstimator, TransformerMixin):
                 ]:
                     to_drop.append(col)
         elif self.stage == 'post_qualifying':
+            # Only drop sprint features if this is NOT a sprint weekend.
+            # On sprint weekends, sprint happened before qualifying so data is valid.
+            is_sprint_weekend = 'sprint_weekend_flag' in X.columns and X['sprint_weekend_flag'].max() == 1
             for col in X.columns:
                 c = col.lower()
-                if c.startswith('sprint_'):
+                if c.startswith('sprint_') and not is_sprint_weekend:
                     to_drop.append(col)
                     
         self.dropped_cols_ = list(set(to_drop))
