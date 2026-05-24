@@ -2,39 +2,39 @@
     "podium_post_qualifying": {
         "val": {
             "roc_auc": {
-                "advanced": 0.941907261592301,
+                "advanced": 0.9320209973753281,
                 "baseline": 0.9023987872302479,
                 "improved": true
             },
             "pr_auc": {
-                "advanced": 0.7827062940244907,
+                "advanced": 0.7456684397958603,
                 "baseline": 0.6630689170757104,
                 "improved": true
             },
             "precision": {
-                "advanced": 0.66,
+                "advanced": 0.5833333333333334,
                 "baseline": 0.4214876033057851,
                 "improved": true
             },
             "recall": {
-                "advanced": 0.7333333333333333,
+                "advanced": 0.7777777777777778,
                 "baseline": 0.8095238095238095,
                 "improved": false
             },
             "top3_accuracy": {
-                "advanced": 0.6888888888888888,
+                "advanced": 0.711111111111111,
                 "baseline": 0.5873015873015873,
                 "improved": true
             }
         },
         "test": {
             "roc_auc": {
-                "advanced": 0.9692982456140351,
+                "advanced": 0.9605263157894737,
                 "baseline": 0.9226155358898722,
                 "improved": true
             },
             "pr_auc": {
-                "advanced": 0.8305555555555555,
+                "advanced": 0.7659090909090909,
                 "baseline": 0.584533232767795,
                 "improved": true
             },
@@ -58,39 +58,39 @@
     "top10_post_qualifying": {
         "val": {
             "roc_auc": {
-                "advanced": 0.8366219239373602,
+                "advanced": 0.828903803131991,
                 "baseline": 0.8462292093871041,
                 "improved": false
             },
             "pr_auc": {
-                "advanced": 0.8253214892575124,
+                "advanced": 0.8207323382862063,
                 "baseline": 0.8004422405387943,
                 "improved": true
             },
             "precision": {
-                "advanced": 0.7375,
+                "advanced": 0.7484662576687117,
                 "baseline": 0.7612612612612613,
                 "improved": false
             },
             "recall": {
-                "advanced": 0.7866666666666666,
+                "advanced": 0.8133333333333334,
                 "baseline": 0.8047619047619048,
-                "improved": false
+                "improved": true
             },
             "top10_accuracy": {
-                "advanced": 0.76,
+                "advanced": 0.7533333333333335,
                 "baseline": 0.7666666666666666,
                 "improved": false
             }
         },
         "test": {
             "roc_auc": {
-                "advanced": 0.8395833333333333,
+                "advanced": 0.8541666666666666,
                 "baseline": 0.8930150753768843,
                 "improved": false
             },
             "pr_auc": {
-                "advanced": 0.8016343442204512,
+                "advanced": 0.8492719840289875,
                 "baseline": 0.8822908085485324,
                 "improved": false
             },
@@ -272,12 +272,12 @@
     "race_finish_post_qualifying": {
         "val": {
             "mae": {
-                "advanced": 3.237729546512173,
+                "advanced": 3.1310832049992983,
                 "baseline": 3.768496420047733,
                 "improved": true
             },
             "rmse": {
-                "advanced": 4.30803100987885,
+                "advanced": 4.266273647691135,
                 "baseline": 5.2781804198182485,
                 "improved": true
             },
@@ -294,19 +294,19 @@
         },
         "test": {
             "mae": {
-                "advanced": 3.4605422741511247,
+                "advanced": 3.325052215509419,
                 "baseline": 2.6867167919799497,
                 "improved": false
             },
             "rmse": {
-                "advanced": 4.458796382734932,
+                "advanced": 4.522712826804216,
                 "baseline": 3.8329791707375964,
                 "improved": false
             },
             "race_finish_top1_accuracy": {
-                "advanced": 1.0,
+                "advanced": 0.0,
                 "baseline": 0.15,
-                "improved": true
+                "improved": false
             },
             "race_finish_naive_top1_accuracy": {
                 "advanced": 1.0,

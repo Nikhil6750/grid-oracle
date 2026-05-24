@@ -128,7 +128,15 @@
         "news_grid_penalty_flag_missing",
         "news_wet_race_probability_missing",
         "news_safety_car_probability_missing",
-        "news_data_available_missing"
+        "news_data_available_missing",
+        "quali_gap_rank",
+        "quali_gap_rank_missing",
+        "weekend_momentum_score",
+        "weekend_momentum_score_missing",
+        "circuit_podium_rate",
+        "circuit_podium_rate_missing",
+        "form_recency_ratio",
+        "form_recency_ratio_missing"
     ],
     "top10_post_qualifying": [
         "team",
@@ -259,7 +267,15 @@
         "news_grid_penalty_flag_missing",
         "news_wet_race_probability_missing",
         "news_safety_car_probability_missing",
-        "news_data_available_missing"
+        "news_data_available_missing",
+        "quali_gap_rank",
+        "quali_gap_rank_missing",
+        "weekend_momentum_score",
+        "weekend_momentum_score_missing",
+        "circuit_podium_rate",
+        "circuit_podium_rate_missing",
+        "form_recency_ratio",
+        "form_recency_ratio_missing"
     ],
     "podium_pre_weekend": [
         "team",
@@ -732,7 +748,15 @@
         "news_grid_penalty_flag_missing",
         "news_wet_race_probability_missing",
         "news_safety_car_probability_missing",
-        "news_data_available_missing"
+        "news_data_available_missing",
+        "quali_gap_rank",
+        "quali_gap_rank_missing",
+        "weekend_momentum_score",
+        "weekend_momentum_score_missing",
+        "circuit_podium_rate",
+        "circuit_podium_rate_missing",
+        "form_recency_ratio",
+        "form_recency_ratio_missing"
     ],
     "qualifying_pre_weekend": [
         "team",
