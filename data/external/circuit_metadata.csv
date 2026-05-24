@@ -1,0 +1,25 @@
+circuit_id,event_name,tyre_degradation_category,tyre_degradation_level
+bahrain,"Bahrain Grand Prix",High,3
+jeddah,"Saudi Arabian Grand Prix",Low,1
+albert_park,"Australian Grand Prix",Medium,2
+suzuka,"Japanese Grand Prix",High,3
+shanghai,"Chinese Grand Prix",Medium,2
+miami,"Miami Grand Prix",Medium,2
+imola,"Emilia Romagna Grand Prix",Medium,2
+monaco,"Monaco Grand Prix",Low,1
+villeneuve,"Canadian Grand Prix",Medium,2
+catalunya,"Spanish Grand Prix",High,3
+red_bull_ring,"Austrian Grand Prix",Medium,2
+silverstone,"British Grand Prix",High,3
+hungaroring,"Hungarian Grand Prix",Medium,2
+spa,"Belgian Grand Prix",Medium,2
+zandvoort,"Dutch Grand Prix",Medium,2
+monza,"Italian Grand Prix",Low,1
+baku,"Azerbaijan Grand Prix",Low,1
+marina_bay,"Singapore Grand Prix",Medium,2
+americas,"United States Grand Prix",High,3
+rodriguez,"Mexico City Grand Prix",Medium,2
+interlagos,"São Paulo Grand Prix",Medium,2
+las_vegas,"Las Vegas Grand Prix",Low,1
+losail,"Qatar Grand Prix",High,3
+yas_marina,"Abu Dhabi Grand Prix",Medium,2

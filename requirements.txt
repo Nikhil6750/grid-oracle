@@ -1,0 +1,14 @@
+fastf1==3.8.3
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+pandas
+numpy
+requests
+python-dotenv
+pyarrow
+pytest
+ruff
+scikit-learn
+joblib
