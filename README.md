@@ -1,58 +1,124 @@
-# PitWall AI — Automated F1 Race Prediction Engine
-Live pre-race podium prediction powered by FastF1, sklearn, and FastAPI.
+# Grid Oracle 🏎️🔮
 
-## Overview
-Automated pre-race prediction system for Formula 1. Ingests live F1 session data via FastF1, builds rolling driver/team/weather/strategy features, and outputs P1/P2/P3 podium predictions before lights out. Heavily weighted toward 2026 in-season form with live news injection for grid penalties and weather alerts.
+> **F1 race prediction web app that estimates likely top 3 drivers using race history, qualifying, sprint, practice, weather, and performance signals.**
 
-## Architecture
+---
+
+## 🌐 Live Demo
+- **Frontend Live URL**: https://grid-oracle-nine.vercel.app/
+- **Backend Live URL**: https://grid-oracle-backend.vercel.app/
+
+*(Note: The current backend deployment on Vercel is lightweight. Heavy machine learning and prediction logic might need a dedicated ML-friendly hosting service in the future. The `/predict` API may be placeholder or limited depending on the deployed version.)*
+
+---
+
+## 🏎️ Problem Statement
+Formula 1 is a sport where fractions of a second matter, but predicting race outcomes is incredibly complex. Traditional predictions often rely heavily on gut feeling or simple qualifying order. They fail to account for the interplay of changing track conditions, team strategy, recent driver form, wet-weather skills, and historical data patterns.
+
+## ✨ What the Project Does
+Grid Oracle is an automated pre-race prediction system. It ingests live F1 session data and calculates the likely top 3 podium finishers before lights out. It does this by evaluating rolling driver and team statistics, qualifying lap details, track weather, and driver wet-skill ratings to produce an informed, data-driven forecast.
+
+## 🚀 Why This Project Is Useful
+This project bridges the gap between raw telemetry and fan accessibility. It provides motorsport enthusiasts, data science students, and analysts with a clear, statistically backed look at upcoming races. For developers and recruiters, it demonstrates the integration of external APIs (FastF1), machine learning pipelines, and modern web frameworks (React/FastAPI) into a unified, user-friendly application.
+
+---
+
+## 🌟 Key Features
+- **Data-Driven Predictions**: Uses historical driver stats, qualifying lap details, and recent 2026 in-season form.
+- **Advanced Feature Engineering**: Considers team strategy DNA, wet-skill ratings, and weather forecasts (rainfall flag, track temp, humidity, wind).
+- **Leakage-Safe Modeling**: Strictly separates historical data to prevent future-data leakage during model training.
+- **Modern Dashboard UI**: A clean, responsive frontend tailored for a premium F1 editorial feel.
+- **RESTful API Backend**: A fast and lightweight Python backend to serve predictions.
+
+---
+
+## 🛠️ Tech Stack
+- **Frontend**: React, Vite, Tailwind CSS
+- **Backend**: Python 3.11, FastAPI, Uvicorn
+- **Machine Learning**: scikit-learn, pandas
+- **Data Source**: FastF1 API
+- **Deployment**: Vercel (Frontend & Lightweight Backend)
+
+---
+
+## 🏗️ Project Architecture
 ```text
 FastF1 API -> Ingestor -> Feature Store -> Model Pipeline -> REST API -> React Frontend
 ```
 
-## Feature Families
-* Historical driver stats (rolling 3/5 race windows, shift(1) leakage-safe)
-* Qualifying lap detail (gap to pole, sector times, session reached, consistency)
-* Weather (rainfall flag, track/air temp, humidity, wind speed)
-* Driver wet-skill ratings (wet vs dry delta, rolling wet podium rate)
-* Team strategy DNA (pit stop consistency, undercut/overcut frequency, tyre preference)
-* 2026 in-season form (last-3 finish avg, momentum trend, quali consistency)
-* Live news injection (grid penalties, wet race probability from F1 feeds)
+---
 
-## Models
-* HistGradientBoostingRegressor: race finish position, qualifying position
-* HistGradientBoostingClassifier: podium binary, top-10 binary
-* RandomForestClassifier (Podium Ranker): exact P1/P2/P3 from top-5 candidates
-* Trained per stage: pre_weekend, post_qualifying, post_sprint
-* Sample weights: 2026 = 8x, 2018 = 0.3x
+## 📂 Folder Structure
+```text
+pitwall-ai-backend/
+├── frontend/             # React/Vite frontend application
+├── src/                  # Heavy backend source code (models, data ingestion, api)
+├── vercel_backend/       # Lightweight FastAPI application for Vercel deployment
+├── data/                 # Raw and processed FastF1 parquet data & feature store
+├── models/               # Trained scikit-learn joblib pipelines
+├── scripts/              # Setup and pipeline scripts
+├── tests/                # Unit testing
+└── requirements.txt      # Python dependencies
+```
 
-## Quick Start
+---
+
+## 💻 How to Run Locally
+
+### Frontend Setup
 ```bash
+cd frontend
+npm install
+npm run dev
+```
+
+
+to this:
+
+```md
+### Heavy Backend Setup (Local Machine Learning Pipeline)
+```bash
+python -m venv .venv
+.venv\Scripts\activate
 pip install -r requirements.txt
-python scripts/pre_race_pipeline.py --season 2026 --round 6
 uvicorn src.api.main:app --reload
 ```
 
-## Key API Endpoints
-```http
-GET  /predict/race?season=2026&round=6&stage=post_qualifying
-GET  /predict/podium?season=2026&round=6&stage=post_qualifying
-POST /ingest/session?season=2026&round=6&session=Q
-```
+---
 
-## Weekend Run Schedule
-| Timing | Command | Stage |
-| --- | --- | --- |
-| Pre-weekend | `pre_race_pipeline.py --round N` | pre_weekend |
-| After qualifying | `pre_race_pipeline.py --round N` | post_qualifying |
-| After sprint | `pre_race_pipeline.py --round N` | post_sprint |
+## ☁️ Deployment
 
-## Data Layout
-* `data/processed/sessions/season=YYYY/round=RR/` — raw FastF1 parquets
-* `data/features/race_features.parquet` — assembled feature store
-* `models/advanced/*.joblib` — trained sklearn pipelines
+### Frontend Deployment
+The frontend is optimized and deployed on **Vercel**. It connects to the backend API via configured environment variables.
 
-## Leakage Safety
-All feature builders follow strict `shift(1)` discipline to ensure round-N features only use rounds 1..N-1. A `LeakageGuard` in the sklearn pipeline rejects any forbidden column at both training and inference time. Inference additionally strips target columns via `_strip_forbidden()`.
+### Backend Deployment
+The current backend is deployed as a Serverless function on **Vercel** (`vercel_backend/`). Because Vercel has limits on memory, package size, and execution time, this version of the backend is lightweight. Advanced ML model inference and data ingestion require heavier resources and may be hosted on a dedicated platform (like Render, AWS, or GCP) in the future.
 
-## Tech Stack
-Python 3.11, FastAPI, FastF1, scikit-learn, pandas, React/Vite
+---
+
+## 🔌 API Endpoints
+
+### `GET /`
+Health check endpoint to verify that the backend is running.
+
+### `POST /predict`
+Executes a race prediction and returns the likely top 3 podium drivers based on current race weekend data. *(Note: Depending on the deployment environment, this may return placeholder data or limited results if the ML models are too heavy for serverless execution).*
+
+---
+
+## 🚧 Current Limitations
+- **Hosting Limits**: The current Vercel backend cannot comfortably host heavy `.joblib` ML models or large `pandas` data processing due to strict serverless size and timeout constraints.
+- **Cold Starts**: Serverless architecture may introduce minor latency during the first API request.
+- **Real-Time Data**: Predictions rely on the timely availability of FastF1 telemetry.
+
+---
+
+## 🔮 Future Improvements
+- Migrate the heavy machine learning pipeline to a dedicated containerized service (e.g., Docker + AWS ECS / Google Cloud Run).
+- Introduce real-time live-race win probability updates.
+- Expand data visualization on the frontend (e.g., track map overlays, driver momentum graphs).
+- Incorporate official F1 news feeds for real-time penalty and weather adjustments.
+
+## 👤 Author
+**Nikhil Reddy**
+- [GitHub Profile](https://github.com/Nikhil6750)
