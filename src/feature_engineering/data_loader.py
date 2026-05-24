@@ -23,7 +23,19 @@ class DataLoader:
         
     def load_session_results(self, session_type_filter: str = None) -> pd.DataFrame:
         """Loads all results.parquet files into a single DataFrame."""
-        result_files = list(self.sessions_dir.rglob("*_results.parquet"))
+        return self._load_parquet_files("*_results.parquet", session_type_filter)
+        
+    def load_session_laps(self, session_type_filter: str = None) -> pd.DataFrame:
+        """Loads all laps.parquet files into a single DataFrame."""
+        return self._load_parquet_files("*_laps.parquet", session_type_filter)
+        
+    def load_session_weather(self, session_type_filter: str = None) -> pd.DataFrame:
+        """Loads all weather.parquet files into a single DataFrame."""
+        return self._load_parquet_files("*_weather.parquet", session_type_filter)
+
+    def _load_parquet_files(self, glob_pattern: str, session_type_filter: str = None) -> pd.DataFrame:
+        """Helper to load generic parquet files from session folders."""
+        result_files = list(self.sessions_dir.rglob(glob_pattern))
         dfs = []
         for f in result_files:
             try:
@@ -63,13 +75,17 @@ class DataLoader:
                 df = df.rename(columns={
                     'DriverNumber': 'driver_number',
                     'Abbreviation': 'driver_code',
-                    'TeamName': 'team'
+                    'Driver': 'driver_code',  # FastF1 uses Driver for laps.parquet
+                    'TeamName': 'team',
+                    'Team': 'team' # FastF1 uses Team for laps.parquet
                 })
                 
                 # Ensure correct types
-                df['driver_number'] = df['driver_number'].astype(str)
-                df['driver_code'] = df['driver_code'].astype(str)
-                df['driver'] = df['driver_code']  # Fallback to driver_code as driver name
+                if 'driver_number' in df.columns:
+                    df['driver_number'] = df['driver_number'].astype(str)
+                if 'driver_code' in df.columns:
+                    df['driver_code'] = df['driver_code'].astype(str)
+                    df['driver'] = df['driver_code']  # Fallback to driver_code as driver name
                 
                 dfs.append(df)
             except Exception as e:

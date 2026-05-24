@@ -30,6 +30,12 @@ class TargetBuilder:
         
         df['target_race_finish_position'] = df['Position']
         
+        # Podium position target: 1, 2, or 3 for podium finishers; NaN for non-podium
+        import numpy as np
+        df['target_podium_position'] = df['race_finish_position'].where(
+            df['race_finish_position'] <= 3, other=np.nan
+        ) if 'race_finish_position' in df.columns else df['Position'].where(df['Position'] <= 3, other=np.nan)
+        
         df['target_podium_class'] = df['Position'].apply(lambda x: x if x <= 3 else 4)
         
         df['target_top10'] = df['Position'].apply(lambda x: 1 if x <= 10 else 0)
@@ -56,7 +62,7 @@ class TargetBuilder:
         target_cols = [
             'season', 'round', 'event_name', 'driver_number', 'driver_code',
             'target_qualifying_position', 'target_race_finish_position', 
-            'target_podium_class', 'target_top10', 'target_points_finish', 'target_dnf'
+            'target_podium_class', 'target_podium_position', 'target_top10', 'target_points_finish', 'target_dnf'
         ]
         
         # Only return the target columns and identifiers

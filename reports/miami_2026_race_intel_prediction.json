@@ -1,0 +1,393 @@
+{
+  "event": {
+    "season": 2026,
+    "round": 4,
+    "name": "Miami Grand Prix",
+    "stage": "post_qualifying"
+  },
+  "final_prediction": [
+    {
+      "position": 1,
+      "driver": "LEC",
+      "full_name": "Charles Leclerc",
+      "team": "Ferrari",
+      "final_score": 0.336615,
+      "qualifying_position": null,
+      "sprint_finish_ontrack": 3.0
+    },
+    {
+      "position": 2,
+      "driver": "PIA",
+      "full_name": "Oscar Piastri",
+      "team": "McLaren",
+      "final_score": 0.351195,
+      "qualifying_position": null,
+      "sprint_finish_ontrack": 2.0
+    },
+    {
+      "position": 3,
+      "driver": "NOR",
+      "full_name": "Lando Norris",
+      "team": "McLaren",
+      "final_score": 0.351996,
+      "qualifying_position": null,
+      "sprint_finish_ontrack": 1.0
+    }
+  ],
+  "analyst_adjusted_ranking": [
+    {
+      "rank": 1,
+      "driver": "LEC",
+      "adjusted_score": 0.336615,
+      "raw_score": 0.356615,
+      "adjustment": -0.02,
+      "reasons": [
+        "sprint P3 podium boost"
+      ]
+    },
+    {
+      "rank": 2,
+      "driver": "PIA",
+      "adjusted_score": 0.351195,
+      "raw_score": 0.371195,
+      "adjustment": -0.02,
+      "reasons": [
+        "sprint P2 podium boost"
+      ]
+    },
+    {
+      "rank": 3,
+      "driver": "NOR",
+      "adjusted_score": 0.351996,
+      "raw_score": 0.386996,
+      "adjustment": -0.035,
+      "reasons": [
+        "sprint winner race-pace boost"
+      ]
+    },
+    {
+      "rank": 4,
+      "driver": "RUS",
+      "adjusted_score": 0.379297,
+      "raw_score": 0.379297,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 5,
+      "driver": "ANT",
+      "adjusted_score": 0.384603,
+      "raw_score": 0.384603,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 6,
+      "driver": "VER",
+      "adjusted_score": 0.392647,
+      "raw_score": 0.402647,
+      "adjustment": -0.01,
+      "reasons": [
+        "high-confidence long-run pace"
+      ]
+    },
+    {
+      "rank": 7,
+      "driver": "HAM",
+      "adjusted_score": 0.406434,
+      "raw_score": 0.406434,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 8,
+      "driver": "GAS",
+      "adjusted_score": 0.427311,
+      "raw_score": 0.427311,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 9,
+      "driver": "HAD",
+      "adjusted_score": 0.442399,
+      "raw_score": 0.442399,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 10,
+      "driver": "OCO",
+      "adjusted_score": 0.469615,
+      "raw_score": 0.469615,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 11,
+      "driver": "COL",
+      "adjusted_score": 0.477408,
+      "raw_score": 0.477408,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 12,
+      "driver": "SAI",
+      "adjusted_score": 0.491071,
+      "raw_score": 0.491071,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 13,
+      "driver": "BEA",
+      "adjusted_score": 0.496248,
+      "raw_score": 0.496248,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 14,
+      "driver": "LAW",
+      "adjusted_score": 0.518152,
+      "raw_score": 0.518152,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 15,
+      "driver": "BOR",
+      "adjusted_score": 0.524523,
+      "raw_score": 0.524523,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 16,
+      "driver": "ALB",
+      "adjusted_score": 0.542515,
+      "raw_score": 0.542515,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 17,
+      "driver": "ALO",
+      "adjusted_score": 0.575486,
+      "raw_score": 0.575486,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 18,
+      "driver": "PER",
+      "adjusted_score": 0.591812,
+      "raw_score": 0.591812,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 19,
+      "driver": "HUL",
+      "adjusted_score": 0.60854,
+      "raw_score": 0.60854,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 20,
+      "driver": "STR",
+      "adjusted_score": 0.621684,
+      "raw_score": 0.621684,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 21,
+      "driver": "LIN",
+      "adjusted_score": 0.635028,
+      "raw_score": 0.635028,
+      "adjustment": 0.0,
+      "reasons": []
+    },
+    {
+      "rank": 22,
+      "driver": "BOT",
+      "adjusted_score": 0.654909,
+      "raw_score": 0.654909,
+      "adjustment": 0.0,
+      "reasons": []
+    }
+  ],
+  "raw_model_ranking": [
+    {
+      "rank": 1,
+      "driver": "LEC",
+      "score": 0.356615
+    },
+    {
+      "rank": 2,
+      "driver": "PIA",
+      "score": 0.371195
+    },
+    {
+      "rank": 3,
+      "driver": "RUS",
+      "score": 0.379297
+    },
+    {
+      "rank": 4,
+      "driver": "ANT",
+      "score": 0.384603
+    },
+    {
+      "rank": 5,
+      "driver": "NOR",
+      "score": 0.386996
+    },
+    {
+      "rank": 6,
+      "driver": "VER",
+      "score": 0.402647
+    },
+    {
+      "rank": 7,
+      "driver": "HAM",
+      "score": 0.406434
+    },
+    {
+      "rank": 8,
+      "driver": "GAS",
+      "score": 0.427311
+    },
+    {
+      "rank": 9,
+      "driver": "HAD",
+      "score": 0.442399
+    },
+    {
+      "rank": 10,
+      "driver": "OCO",
+      "score": 0.469615
+    },
+    {
+      "rank": 11,
+      "driver": "COL",
+      "score": 0.477408
+    },
+    {
+      "rank": 12,
+      "driver": "SAI",
+      "score": 0.491071
+    },
+    {
+      "rank": 13,
+      "driver": "BEA",
+      "score": 0.496248
+    },
+    {
+      "rank": 14,
+      "driver": "LAW",
+      "score": 0.518152
+    },
+    {
+      "rank": 15,
+      "driver": "BOR",
+      "score": 0.524523
+    },
+    {
+      "rank": 16,
+      "driver": "ALB",
+      "score": 0.542515
+    },
+    {
+      "rank": 17,
+      "driver": "ALO",
+      "score": 0.575486
+    },
+    {
+      "rank": 18,
+      "driver": "PER",
+      "score": 0.591812
+    },
+    {
+      "rank": 19,
+      "driver": "HUL",
+      "score": 0.60854
+    },
+    {
+      "rank": 20,
+      "driver": "STR",
+      "score": 0.621684
+    },
+    {
+      "rank": 21,
+      "driver": "LIN",
+      "score": 0.635028
+    },
+    {
+      "rank": 22,
+      "driver": "BOT",
+      "score": 0.654909
+    }
+  ],
+  "analyst_adjustments": {
+    "LEC": [
+      "sprint P3 podium boost"
+    ],
+    "PIA": [
+      "sprint P2 podium boost"
+    ],
+    "RUS": [],
+    "ANT": [],
+    "NOR": [
+      "sprint winner race-pace boost"
+    ],
+    "VER": [
+      "high-confidence long-run pace"
+    ],
+    "HAM": [],
+    "GAS": [],
+    "HAD": [],
+    "OCO": [],
+    "COL": [],
+    "SAI": [],
+    "BEA": [],
+    "LAW": [],
+    "BOR": [],
+    "ALB": [],
+    "ALO": [],
+    "PER": [],
+    "HUL": [],
+    "STR": [],
+    "LIN": [],
+    "BOT": []
+  },
+  "audit_flags": [],
+  "confidence": "Medium",
+  "sessions_used": [
+    "FP1",
+    "SQ",
+    "S",
+    "Q"
+  ],
+  "sessions_failed": {
+    "R": "property 'session_status' of 'Session' object has no setter"
+  },
+  "weather": {
+    "rain_risk": 0.0,
+    "air_temp": 31.69875,
+    "track_temp": 49.04375,
+    "humidity": 51.438750000000006,
+    "weather_volatility_score": 0.0,
+    "wet_race_adjustment": 0.0,
+    "source": "FastF1:S"
+  },
+  "warnings": [
+    "ML models trained on 2018-2024. 2026 is out-of-sample.",
+    "Weather, safety car, and start incidents can change result."
+  ],
+  "disclaimer": "Educational ML inference system. Not a betting tool.",
+  "timestamp": "2026-05-11T16:13:20.171945+00:00"
+}

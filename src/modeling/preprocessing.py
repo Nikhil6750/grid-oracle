@@ -150,7 +150,7 @@ def get_baseline_pipeline(model, stage, cat_cols=None, num_cols=None, cols_to_dr
             'feature_source_sessions', 'feature_cutoff_timestamp',
             'target_qualifying_position', 'target_race_finish_position',
             'target_podium_class', 'target_top10', 'target_points_finish', 'target_dnf',
-            'target_podium_binary'
+            'target_podium_binary', 'target_podium_position'
         ]
         
     pipeline = Pipeline(steps=[

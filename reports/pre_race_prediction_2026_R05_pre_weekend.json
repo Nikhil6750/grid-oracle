@@ -1,0 +1,86 @@
+{
+  "season": 2026,
+  "round": 5,
+  "stage": "pre_weekend",
+  "pole_sitter_candidate": null,
+  "race_winner_candidate": "ANT",
+  "podium_ranking": [
+    {
+      "driver": "ANT",
+      "probability": 0.0737
+    },
+    {
+      "driver": "RUS",
+      "probability": 0.0534
+    },
+    {
+      "driver": "LEC",
+      "probability": 0.0482
+    },
+    {
+      "driver": "NOR",
+      "probability": 0.0422
+    },
+    {
+      "driver": "HAM",
+      "probability": 0.0398
+    }
+  ],
+  "podium_position_prediction": {
+    "P1": "ANT",
+    "P2": "NOR",
+    "P3": "HAM"
+  },
+  "top10_ranking": [
+    {
+      "driver": "GAS",
+      "probability": 0.7706
+    },
+    {
+      "driver": "PIA",
+      "probability": 0.767
+    },
+    {
+      "driver": "VER",
+      "probability": 0.7441
+    },
+    {
+      "driver": "NOR",
+      "probability": 0.7441
+    },
+    {
+      "driver": "LEC",
+      "probability": 0.7183
+    },
+    {
+      "driver": "ANT",
+      "probability": 0.7183
+    },
+    {
+      "driver": "RUS",
+      "probability": 0.7103
+    },
+    {
+      "driver": "HAM",
+      "probability": 0.6893
+    },
+    {
+      "driver": "LAW",
+      "probability": 0.4866
+    },
+    {
+      "driver": "OCO",
+      "probability": 0.4689
+    }
+  ],
+  "models_used": {
+    "race_finish": "advanced",
+    "podium": "advanced",
+    "podium_ranker": "advanced",
+    "top10": "advanced"
+  },
+  "warnings": [
+    "Pre-weekend prediction: does not use qualifying or session data."
+  ],
+  "prediction_records_path": "reports/advanced_predictions.parquet"
+}

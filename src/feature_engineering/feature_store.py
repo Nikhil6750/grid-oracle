@@ -10,6 +10,10 @@ from src.feature_engineering.circuit_features import CircuitFeatureBuilder
 from src.feature_engineering.weekend_features import WeekendFeatureBuilder
 from src.feature_engineering.target_builder import TargetBuilder
 from src.feature_engineering.leakage_validator import LeakageValidator
+from src.feature_engineering.weather_features import WeatherFeatureBuilder
+from src.feature_engineering.wet_skill_features import WetSkillFeatureBuilder
+from src.feature_engineering.strategy_features import TeamStrategyFeatureBuilder
+from src.feature_engineering.qualifying_lap_features import QualifyingLapFeatureBuilder
 
 
 class FeatureStore:
@@ -130,7 +134,32 @@ class FeatureStore:
         tb = TeamFeatureBuilder(r_df, q_df)
         team_feats = tb.build_features()
         
-        # 3. Build Targets
+        # 3. New Feature Builders Integration
+        r_weather = self.loader.load_session_weather('R')
+        wb_weather = WeatherFeatureBuilder(r_weather, 'R')
+        weather_index = wb_weather.build_features()
+        
+        wsb = WetSkillFeatureBuilder(r_df, weather_index)
+        wet_feats = wsb.build_features()
+        
+        r_laps = self.loader.load_session_laps('R')
+        tsb = TeamStrategyFeatureBuilder(r_laps, r_df)
+        strategy_feats = tsb.build_features()
+        
+        q_laps = self.loader.load_session_laps('Q')
+        qlb = QualifyingLapFeatureBuilder(q_laps, q_df)
+        quali_lap_feats = qlb.build_features()
+        
+        if not weather_index.empty:
+            driver_feats = driver_feats.merge(weather_index, on=['season', 'round'], how='left')
+        if not wet_feats.empty:
+            driver_feats = driver_feats.merge(wet_feats, on=['season', 'round', 'driver_code'], how='left')
+        if not quali_lap_feats.empty:
+            driver_feats = driver_feats.merge(quali_lap_feats, on=['season', 'round', 'driver_code'], how='left')
+        if not strategy_feats.empty:
+            team_feats = team_feats.merge(strategy_feats, on=['season', 'round', 'team'], how='left')
+        
+        # 3b. Build Targets
         tgb = TargetBuilder(r_df, q_df)
         targets = tgb.build_targets()
         

@@ -3,10 +3,15 @@ Shared prediction service used by both scripts/predict_advanced.py and src/api/m
 Loads models, runs inference, returns structured results. Does NOT train.
 """
 import json
+import logging
 import numpy as np
 import pandas as pd
 from pathlib import Path
 from src.modeling.model_registry import ModelRegistry
+
+logger = logging.getLogger(__name__)
+_SERVICE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = _SERVICE_DIR.parent.parent
 
 
 def _load_model_with_fallback(adv_registry, base_registry, adv_name, base_name):
@@ -25,7 +30,7 @@ def _load_model_with_fallback(adv_registry, base_registry, adv_name, base_name):
 
 def _check_naive_warning(stage: str, task: str) -> str | None:
     """Check if advanced model underperforms naive on the test metric."""
-    metrics_path = Path("reports/advanced_metrics.json")
+    metrics_path = PROJECT_ROOT / "reports/advanced_metrics.json"
     if not metrics_path.exists():
         return None
     with open(metrics_path, "r") as f:
@@ -48,44 +53,72 @@ def _check_naive_warning(stage: str, task: str) -> str | None:
     return None
 
 
-def run_prediction(season: int, round_num: int, stage: str, save_parquet: bool = True) -> dict:
+def run_prediction(season: int, round_num: int, stage: str, save_parquet: bool = False) -> dict:
     """
     Run inference for a given season/round/stage.
     Returns a dict matching PredictionResponse schema.
     Raises FileNotFoundError if no feature data found.
     """
     adv_registry = ModelRegistry(
-        models_dir="models/advanced",
+        models_dir=str(PROJECT_ROOT / "models/advanced"),
         metrics_filename="advanced_metrics.json",
         predictions_filename="advanced_predictions.parquet",
+        reports_dir=str(PROJECT_ROOT / "reports"),
     )
     base_registry = ModelRegistry(
-        models_dir="models/baseline",
+        models_dir=str(PROJECT_ROOT / "models/baseline"),
         metrics_filename="baseline_metrics.json",
         predictions_filename="baseline_predictions.parquet",
+        reports_dir=str(PROJECT_ROOT / "reports"),
     )
+
+    # Forbidden columns that must never reach the model at inference time.
+    # These columns exist in the parquet for historical/training purposes but are
+    # target leakage for an upcoming race. LeakageGuard will reject them even when NaN.
+    _FORBIDDEN_AT_INFERENCE = [
+        'race_finish_position', 'finishing_position', 'classified_position',
+        'classifiedposition', 'position', 'points', 'status', 'podium',
+        'top10', 'winner', 'result', 'grid_position', 'race_result',
+    ]
+
+    def _strip_forbidden(df: pd.DataFrame) -> pd.DataFrame:
+        to_drop = [
+            c for c in df.columns
+            if c in _FORBIDDEN_AT_INFERENCE
+            or c.lower().startswith('target_')
+            or '_target' in c.lower()
+        ]
+        if to_drop:
+            logger.info(f"[prediction] Stripping {len(to_drop)} forbidden/target columns at inference: {to_drop}")
+            df = df.drop(columns=to_drop)
+        return df
 
     # ---- Load features ----
     q_df = pd.DataFrame()
     if stage == "pre_weekend":
-        q_features = pd.read_parquet("data/features/qualifying_features.parquet")
+        q_features = pd.read_parquet(str(PROJECT_ROOT / "data/features/qualifying_features.parquet"))
         q_df = q_features[
             (q_features["season"] == season)
             & (q_features["round"] == round_num)
             & (q_features["prediction_stage"] == stage)
         ]
+        q_df = _strip_forbidden(q_df)
 
-    r_features = pd.read_parquet("data/features/race_features.parquet")
+    r_features = pd.read_parquet(str(PROJECT_ROOT / "data/features/race_features.parquet"))
     r_df = r_features[
         (r_features["season"] == season)
         & (r_features["round"] == round_num)
         & (r_features["prediction_stage"] == stage)
     ]
+    r_df = _strip_forbidden(r_df)
 
     if r_df.empty:
+        logger.warning(f"[prediction] r_df is empty for {season} R{round_num} [{stage}]")
         raise FileNotFoundError(
             f"No features for season {season} round {round_num} stage {stage}."
         )
+
+    logger.info(f"[prediction] Loaded {len(r_df)} race feature rows for {season} R{round_num} [{stage}]")
 
     predictions = []
     models_used: dict[str, str | None] = {}
@@ -116,6 +149,7 @@ def run_prediction(season: int, round_num: int, stage: str, save_parquet: bool =
                     "prediction": float(q_preds[idx]), "probability": None,
                 })
             pole_sitter = q_df.iloc[int(np.argmin(q_preds))]["driver_code"]
+            logger.info(f"[prediction] Pole sitter candidate: {pole_sitter} (model: {label})")
             w = _check_naive_warning(stage, "qualifying")
             if w:
                 warnings.append(w)
@@ -139,6 +173,7 @@ def run_prediction(season: int, round_num: int, stage: str, save_parquet: bool =
                 "prediction": float(r_preds[idx]), "probability": None,
             })
         race_winner = r_df.iloc[int(np.argmin(r_preds))]["driver_code"]
+        logger.info(f"[prediction] Race winner candidate: {race_winner} (model: {label})")
         w = _check_naive_warning(stage, "race_finish")
         if w:
             warnings.append(w)
@@ -175,6 +210,45 @@ def run_prediction(season: int, round_num: int, stage: str, save_parquet: bool =
         w = _check_naive_warning(stage, "podium")
         if w:
             warnings.append(w)
+
+    # ---- Podium Position Ranker (P1/P2/P3) ----
+    podium_position_prediction: dict = {}
+    if podium_ranking:
+        top5_codes = [e["driver"] for e in podium_ranking[:5]]
+        top5_df = r_df[r_df["driver_code"].isin(top5_codes)].copy()
+
+        ranker, rnk_label, rnk_fb = _load_model_with_fallback(
+            adv_registry, base_registry,
+            f"podium_ranker_advanced_{stage}", f"podium_ranker_baseline_{stage}",
+        )
+        if ranker is not None and not top5_df.empty:
+            models_used["podium_ranker"] = rnk_label
+            if rnk_fb:
+                warnings.append("Podium Ranker: using baseline fallback model.")
+            pos_preds = ranker.predict(top5_df)
+            pos_proba = ranker.predict_proba(top5_df)
+            for idx, (_, row) in enumerate(top5_df.iterrows()):
+                for class_idx, pos in enumerate(ranker.classes_):
+                    predictions.append({
+                        "season": row["season"], "round": row["round"],
+                        "event_name": row["event_name"], "driver_code": row["driver_code"],
+                        "prediction_stage": stage, "task": f"podium_position_P{pos}",
+                        "prediction": float(pos_preds[idx]),
+                        "probability": float(pos_proba[idx][class_idx]),
+                    })
+            
+            position_map = {}
+            for pos in [1, 2, 3]:
+                if pos not in ranker.classes_:
+                    continue
+                class_idx = list(ranker.classes_).index(pos)
+                probs_for_pos = {
+                    top5_df.iloc[i]["driver_code"]: pos_proba[i][class_idx]
+                    for i in range(len(top5_df))
+                }
+                if probs_for_pos:
+                    position_map[f"P{pos}"] = max(probs_for_pos, key=probs_for_pos.get)
+            podium_position_prediction = position_map
 
     # ---- Top 10 ----
     top10_ranking: list[dict] = []
@@ -227,6 +301,7 @@ def run_prediction(season: int, round_num: int, stage: str, save_parquet: bool =
         "pole_sitter_candidate": pole_sitter,
         "race_winner_candidate": race_winner,
         "podium_ranking": podium_ranking,
+        "podium_position_prediction": podium_position_prediction,
         "top10_ranking": top10_ranking,
         "models_used": models_used,
         "warnings": warnings,

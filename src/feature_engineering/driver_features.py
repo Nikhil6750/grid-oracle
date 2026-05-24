@@ -65,6 +65,14 @@ class DriverFeatureBuilder:
             last_5_quali_avg = shifted_quali.rolling(window=5, min_periods=1).mean()
             last_5_dnf_rate = shifted_dnf.rolling(window=5, min_periods=1).mean()
             
+            driver_last_3_finish_avg = shifted_finish.rolling(window=3, min_periods=1).mean()
+            driver_form_trend = driver_last_3_finish_avg - last_5_finish_avg
+            
+            driver_df['is_podium'] = (driver_df['Position'] <= 3).astype(float)
+            driver_season_podium_rate_before_event = driver_df.groupby('season', group_keys=False)['is_podium'].apply(
+                lambda x: x.shift(1).expanding().mean()
+            ).fillna(0.0)
+            
             season_points_before = driver_df.groupby('season', group_keys=False)['Points'].apply(
                 lambda x: x.shift(1).cumsum()
             )
@@ -82,6 +90,19 @@ class DriverFeatureBuilder:
                 lambda x: x.shift(1).expanding().mean()
             )
             
+            season_last3_finish = driver_df.groupby('season', group_keys=False)['Position'].apply(
+                lambda x: x.shift(1).rolling(3, min_periods=1).mean()
+            )
+            season_last3_points = driver_df.groupby('season', group_keys=False)['Points'].apply(
+                lambda x: x.shift(1).rolling(3, min_periods=1).sum()
+            )
+            season_momentum = driver_df.groupby('season', group_keys=False)['Position'].apply(
+                lambda x: x.shift(1).diff().rolling(3, min_periods=2).mean()
+            )
+            season_quali_std = driver_df.groupby('season', group_keys=False)['quali_position'].apply(
+                lambda x: x.shift(1).rolling(4, min_periods=2).std()
+            )
+            
             feature_df = pd.DataFrame({
                 'season': driver_df['season'],
                 'round': driver_df['round'],
@@ -94,7 +115,14 @@ class DriverFeatureBuilder:
                 'driver_season_avg_finish_before_event': season_avg_finish,
                 'driver_season_avg_quali_before_event': season_avg_quali,
                 'driver_circuit_avg_finish_before_event': circuit_avg_finish,
-                'driver_circuit_avg_quali_before_event': circuit_avg_quali
+                'driver_circuit_avg_quali_before_event': circuit_avg_quali,
+                'driver_last_3_finish_avg': driver_last_3_finish_avg,
+                'driver_form_trend': driver_form_trend,
+                'driver_season_podium_rate_before_event': driver_season_podium_rate_before_event,
+                'driver_season_last3_finish': season_last3_finish,
+                'driver_season_last3_points': season_last3_points,
+                'driver_season_momentum': season_momentum,
+                'driver_season_quali_std': season_quali_std
             })
             
             features.append(feature_df)
@@ -108,12 +136,14 @@ class DriverFeatureBuilder:
         feature_cols = [
             'driver_last_5_points_avg', 'driver_last_5_finish_avg', 'driver_last_5_qualifying_avg', 'driver_last_5_dnf_rate',
             'driver_season_points_before_event', 'driver_season_avg_finish_before_event', 'driver_season_avg_quali_before_event',
-            'driver_circuit_avg_finish_before_event', 'driver_circuit_avg_quali_before_event'
+            'driver_circuit_avg_finish_before_event', 'driver_circuit_avg_quali_before_event',
+            'driver_last_3_finish_avg', 'driver_form_trend', 'driver_season_podium_rate_before_event',
+            'driver_season_last3_finish', 'driver_season_last3_points', 'driver_season_momentum', 'driver_season_quali_std'
         ]
         
         for col in feature_cols:
             final_df[f"{col}_missing"] = final_df[col].isna().astype(int)
-            if 'points' in col:
+            if 'points' in col or 'rate' in col or 'trend' in col or 'momentum' in col or 'std' in col:
                 final_df[col] = final_df[col].fillna(0.0)
             elif 'dnf' in col:
                 final_df[col] = final_df[col].fillna(0.0)

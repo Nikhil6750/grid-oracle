@@ -1,0 +1,235 @@
+{
+  "event": {
+    "season": 2026,
+    "round": 4,
+    "name": "Miami Grand Prix",
+    "stage": "post_qualifying",
+    "timestamp": "2026-05-03T11:20:48.180896"
+  },
+  "top3": [
+    {
+      "position": 1,
+      "driver": "ANT",
+      "full_name": "Kimi Antonelli",
+      "team": "Mercedes",
+      "podium_probability": 0.5,
+      "predicted_finish": 11.0,
+      "qualifying_position": 1,
+      "final_score": 0.5833333333333334
+    },
+    {
+      "position": 2,
+      "driver": "VER",
+      "full_name": "Max Verstappen",
+      "team": "Red Bull Racing",
+      "podium_probability": 0.5,
+      "predicted_finish": 11.0,
+      "qualifying_position": 2,
+      "final_score": 0.5761904761904761
+    },
+    {
+      "position": 3,
+      "driver": "LEC",
+      "full_name": "Charles Leclerc",
+      "team": "Ferrari",
+      "podium_probability": 0.5,
+      "predicted_finish": 11.0,
+      "qualifying_position": 3,
+      "final_score": 0.569047619047619
+    }
+  ],
+  "full_table": [
+    {
+      "rank": 1,
+      "driver": "ANT",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 1.0,
+      "final_score": 0.5833333333333334
+    },
+    {
+      "rank": 2,
+      "driver": "VER",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.9523809523809523,
+      "final_score": 0.5761904761904761
+    },
+    {
+      "rank": 3,
+      "driver": "LEC",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.9047619047619048,
+      "final_score": 0.569047619047619
+    },
+    {
+      "rank": 4,
+      "driver": "NOR",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.8571428571428572,
+      "final_score": 0.5619047619047619
+    },
+    {
+      "rank": 5,
+      "driver": "RUS",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.8095238095238095,
+      "final_score": 0.5547619047619048
+    },
+    {
+      "rank": 6,
+      "driver": "HAM",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.7619047619047619,
+      "final_score": 0.5476190476190477
+    },
+    {
+      "rank": 7,
+      "driver": "PIA",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.7142857142857143,
+      "final_score": 0.5404761904761904
+    },
+    {
+      "rank": 8,
+      "driver": "COL",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.6666666666666667,
+      "final_score": 0.5333333333333333
+    },
+    {
+      "rank": 9,
+      "driver": "HAD",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.6190476190476191,
+      "final_score": 0.5261904761904762
+    },
+    {
+      "rank": 10,
+      "driver": "GAS",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.5714285714285714,
+      "final_score": 0.5190476190476191
+    },
+    {
+      "rank": 11,
+      "driver": "HUL",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.5238095238095238,
+      "final_score": 0.5119047619047619
+    },
+    {
+      "rank": 12,
+      "driver": "LAW",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.47619047619047616,
+      "final_score": 0.5047619047619047
+    },
+    {
+      "rank": 13,
+      "driver": "BEA",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.4285714285714286,
+      "final_score": 0.4976190476190476
+    },
+    {
+      "rank": 14,
+      "driver": "SAI",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.38095238095238093,
+      "final_score": 0.4904761904761905
+    },
+    {
+      "rank": 15,
+      "driver": "OCO",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.33333333333333337,
+      "final_score": 0.48333333333333334
+    },
+    {
+      "rank": 16,
+      "driver": "ALB",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.2857142857142857,
+      "final_score": 0.4761904761904762
+    },
+    {
+      "rank": 17,
+      "driver": "LIN",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.23809523809523814,
+      "final_score": 0.46904761904761905
+    },
+    {
+      "rank": 18,
+      "driver": "ALO",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.19047619047619047,
+      "final_score": 0.46190476190476193
+    },
+    {
+      "rank": 19,
+      "driver": "STR",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.1428571428571429,
+      "final_score": 0.4547619047619048
+    },
+    {
+      "rank": 20,
+      "driver": "BOT",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.09523809523809523,
+      "final_score": 0.44761904761904764
+    },
+    {
+      "rank": 21,
+      "driver": "PER",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.04761904761904767,
+      "final_score": 0.4404761904761905
+    },
+    {
+      "rank": 22,
+      "driver": "BOR",
+      "podium_prob": 0.5,
+      "finish_score": 0.5238095238095238,
+      "qual_score": 0.0,
+      "final_score": 0.43333333333333335
+    }
+  ],
+  "sessions_loaded": [
+    "FP1",
+    "SQ",
+    "S",
+    "Q"
+  ],
+  "sessions_failed": {},
+  "models_loaded": {
+    "race_finish": "models/advanced/race_finish_advanced_post_qualifying.joblib",
+    "podium": "models/advanced/podium_advanced_post_qualifying.joblib",
+    "top10": "models/advanced/top10_advanced_post_qualifying.joblib"
+  },
+  "confidence": "High",
+  "data_score": 98.18181818181819,
+  "warnings": [],
+  "disclaimer": "Grid Oracle inference on 2026 inputs using 2018-2024 trained models."
+}

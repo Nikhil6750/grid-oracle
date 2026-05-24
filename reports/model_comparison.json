@@ -2,54 +2,54 @@
     "podium_post_qualifying": {
         "val": {
             "roc_auc": {
-                "advanced": 0.8995229177813447,
+                "advanced": 0.941907261592301,
                 "baseline": 0.9023987872302479,
-                "improved": false
+                "improved": true
             },
             "pr_auc": {
-                "advanced": 0.6576786717167933,
+                "advanced": 0.7827062940244907,
                 "baseline": 0.6630689170757104,
-                "improved": false
+                "improved": true
             },
             "precision": {
-                "advanced": 0.5057471264367817,
+                "advanced": 0.66,
                 "baseline": 0.4214876033057851,
                 "improved": true
             },
             "recall": {
-                "advanced": 0.6984126984126984,
+                "advanced": 0.7333333333333333,
                 "baseline": 0.8095238095238095,
                 "improved": false
             },
             "top3_accuracy": {
-                "advanced": 0.6190476190476191,
+                "advanced": 0.6888888888888888,
                 "baseline": 0.5873015873015873,
                 "improved": true
             }
         },
         "test": {
             "roc_auc": {
-                "advanced": 0.9438544739429695,
+                "advanced": 0.9692982456140351,
                 "baseline": 0.9226155358898722,
                 "improved": true
             },
             "pr_auc": {
-                "advanced": 0.6558191028611672,
+                "advanced": 0.8305555555555555,
                 "baseline": 0.584533232767795,
                 "improved": true
             },
             "precision": {
-                "advanced": 0.5625,
+                "advanced": 0.8333333333333334,
                 "baseline": 0.448,
                 "improved": true
             },
             "recall": {
-                "advanced": 0.9,
+                "advanced": 0.8333333333333334,
                 "baseline": 0.9333333333333333,
                 "improved": false
             },
             "top3_accuracy": {
-                "advanced": 0.6499999999999998,
+                "advanced": 0.6666666666666666,
                 "baseline": 0.6333333333333334,
                 "improved": true
             }
@@ -58,54 +58,54 @@
     "top10_post_qualifying": {
         "val": {
             "roc_auc": {
-                "advanced": 0.8452950558213715,
+                "advanced": 0.8366219239373602,
                 "baseline": 0.8462292093871041,
                 "improved": false
             },
             "pr_auc": {
-                "advanced": 0.8292560756972902,
+                "advanced": 0.8253214892575124,
                 "baseline": 0.8004422405387943,
                 "improved": true
             },
             "precision": {
-                "advanced": 0.7668161434977578,
+                "advanced": 0.7375,
                 "baseline": 0.7612612612612613,
-                "improved": true
+                "improved": false
             },
             "recall": {
-                "advanced": 0.8142857142857143,
+                "advanced": 0.7866666666666666,
                 "baseline": 0.8047619047619048,
-                "improved": true
+                "improved": false
             },
             "top10_accuracy": {
-                "advanced": 0.7952380952380954,
+                "advanced": 0.76,
                 "baseline": 0.7666666666666666,
-                "improved": true
+                "improved": false
             }
         },
         "test": {
             "roc_auc": {
-                "advanced": 0.8953015075376883,
+                "advanced": 0.8395833333333333,
                 "baseline": 0.8930150753768843,
-                "improved": true
+                "improved": false
             },
             "pr_auc": {
-                "advanced": 0.8705929961258647,
+                "advanced": 0.8016343442204512,
                 "baseline": 0.8822908085485324,
                 "improved": false
             },
             "precision": {
-                "advanced": 0.8307692307692308,
+                "advanced": 0.7894736842105263,
                 "baseline": 0.7777777777777778,
                 "improved": true
             },
             "recall": {
-                "advanced": 0.81,
+                "advanced": 0.75,
                 "baseline": 0.875,
                 "improved": false
             },
             "top10_accuracy": {
-                "advanced": 0.8150000000000001,
+                "advanced": 0.75,
                 "baseline": 0.8150000000000001,
                 "improved": false
             }
@@ -114,110 +114,110 @@
     "podium_pre_weekend": {
         "val": {
             "roc_auc": {
-                "advanced": 0.8567105370054432,
+                "advanced": 0.9227686703096539,
                 "baseline": 0.8613616053294337,
-                "improved": false
+                "improved": true
             },
             "pr_auc": {
-                "advanced": 0.490175562144185,
+                "advanced": 0.7374824831259108,
                 "baseline": 0.5352545356518962,
-                "improved": false
+                "improved": true
             },
             "precision": {
-                "advanced": 0.375,
+                "advanced": 0.5512820512820513,
                 "baseline": 0.3602941176470588,
                 "improved": true
             },
             "recall": {
-                "advanced": 0.7727272727272727,
+                "advanced": 0.7962962962962963,
                 "baseline": 0.7424242424242424,
                 "improved": true
             },
             "top3_accuracy": {
-                "advanced": 0.48484848484848464,
+                "advanced": 0.7222222222222222,
                 "baseline": 0.4545454545454545,
                 "improved": true
             }
         },
         "test": {
             "roc_auc": {
-                "advanced": 0.885299901671583,
+                "advanced": 0.9495614035087718,
                 "baseline": 0.8749754178957719,
                 "improved": true
             },
             "pr_auc": {
-                "advanced": 0.5205705597013361,
+                "advanced": 0.7177242634050415,
                 "baseline": 0.4494369763972128,
                 "improved": true
             },
             "precision": {
-                "advanced": 0.4297520661157025,
+                "advanced": 0.5555555555555556,
                 "baseline": 0.4,
                 "improved": true
             },
             "recall": {
-                "advanced": 0.8666666666666667,
+                "advanced": 0.8333333333333334,
                 "baseline": 0.9333333333333333,
                 "improved": false
             },
             "top3_accuracy": {
-                "advanced": 0.44999999999999984,
+                "advanced": 0.5833333333333334,
                 "baseline": 0.4833333333333333,
-                "improved": false
+                "improved": true
             }
         }
     },
     "top10_pre_weekend": {
         "val": {
             "roc_auc": {
-                "advanced": 0.8223951847239518,
+                "advanced": 0.8446927374301677,
                 "baseline": 0.8267123287671234,
-                "improved": false
+                "improved": true
             },
             "pr_auc": {
-                "advanced": 0.8156480692594408,
+                "advanced": 0.8492322587741304,
                 "baseline": 0.7972382096038253,
                 "improved": true
             },
             "precision": {
-                "advanced": 0.7379032258064516,
+                "advanced": 0.743455497382199,
                 "baseline": 0.7416666666666667,
-                "improved": false
+                "improved": true
             },
             "recall": {
-                "advanced": 0.8318181818181818,
+                "advanced": 0.7888888888888889,
                 "baseline": 0.8090909090909091,
-                "improved": true
+                "improved": false
             },
             "top10_accuracy": {
-                "advanced": 0.7727272727272727,
+                "advanced": 0.7555555555555556,
                 "baseline": 0.7681818181818183,
-                "improved": true
+                "improved": false
             }
         },
         "test": {
             "roc_auc": {
-                "advanced": 0.8329899497487439,
+                "advanced": 0.8151041666666667,
                 "baseline": 0.8397989949748743,
                 "improved": false
             },
             "pr_auc": {
-                "advanced": 0.8128793880809173,
+                "advanced": 0.7688521396186064,
                 "baseline": 0.8329267955553188,
                 "improved": false
             },
             "precision": {
-                "advanced": 0.7377777777777778,
+                "advanced": 0.7317073170731707,
                 "baseline": 0.688715953307393,
                 "improved": true
             },
             "recall": {
-                "advanced": 0.83,
+                "advanced": 0.75,
                 "baseline": 0.885,
                 "improved": false
             },
             "top10_accuracy": {
-                "advanced": 0.7699999999999999,
+                "advanced": 0.75,
                 "baseline": 0.7699999999999999,
                 "improved": false
             }
@@ -226,41 +226,41 @@
     "race_finish_pre_weekend": {
         "val": {
             "mae": {
-                "advanced": 3.673993925588458,
+                "advanced": 3.302581956012553,
                 "baseline": 3.673993925588458,
-                "improved": false
+                "improved": true
             },
             "rmse": {
-                "advanced": 4.8294919015704805,
+                "advanced": 4.445802015566069,
                 "baseline": 4.8294919015704805,
-                "improved": false
+                "improved": true
             },
             "race_finish_top1_accuracy": {
-                "advanced": 0.45454545454545453,
+                "advanced": 0.5,
                 "baseline": 0.045454545454545456,
                 "improved": true
             },
             "race_finish_naive_top1_accuracy": {
-                "advanced": 0.8636363636363636,
+                "advanced": 0.16666666666666666,
                 "baseline": 0.8636363636363636,
                 "improved": false
             }
         },
         "test": {
             "mae": {
-                "advanced": 3.2899331662489555,
+                "advanced": 3.7374861689082595,
                 "baseline": 3.2899331662489555,
                 "improved": false
             },
             "rmse": {
-                "advanced": 4.358247334347391,
+                "advanced": 4.784418508765359,
                 "baseline": 4.358247334347391,
                 "improved": false
             },
             "race_finish_top1_accuracy": {
-                "advanced": 0.2,
+                "advanced": 0.75,
                 "baseline": 0.3,
-                "improved": false
+                "improved": true
             },
             "race_finish_naive_top1_accuracy": {
                 "advanced": 0.25,
@@ -272,90 +272,90 @@
     "race_finish_post_qualifying": {
         "val": {
             "mae": {
-                "advanced": 3.4336325526254425,
+                "advanced": 3.237729546512173,
                 "baseline": 3.768496420047733,
                 "improved": true
             },
             "rmse": {
-                "advanced": 4.5002932694630955,
+                "advanced": 4.30803100987885,
                 "baseline": 5.2781804198182485,
                 "improved": true
             },
             "race_finish_top1_accuracy": {
-                "advanced": 0.38095238095238093,
+                "advanced": 0.5333333333333333,
                 "baseline": 0.2857142857142857,
                 "improved": true
             },
             "race_finish_naive_top1_accuracy": {
-                "advanced": 0.7142857142857143,
+                "advanced": 0.7333333333333333,
                 "baseline": 0.7142857142857143,
-                "improved": false
+                "improved": true
             }
         },
         "test": {
             "mae": {
-                "advanced": 3.1000634085374164,
+                "advanced": 3.4605422741511247,
                 "baseline": 2.6867167919799497,
                 "improved": false
             },
             "rmse": {
-                "advanced": 3.964455173042878,
+                "advanced": 4.458796382734932,
                 "baseline": 3.8329791707375964,
                 "improved": false
             },
             "race_finish_top1_accuracy": {
-                "advanced": 0.2,
+                "advanced": 1.0,
                 "baseline": 0.15,
                 "improved": true
             },
             "race_finish_naive_top1_accuracy": {
-                "advanced": 0.45,
+                "advanced": 1.0,
                 "baseline": 0.45,
-                "improved": false
+                "improved": true
             }
         }
     },
     "qualifying_pre_weekend": {
         "val": {
             "mae": {
-                "advanced": 3.595216400911162,
+                "advanced": 1.35172936389937,
                 "baseline": 3.595216400911162,
-                "improved": false
+                "improved": true
             },
             "rmse": {
-                "advanced": 4.64162006209146,
+                "advanced": 1.7104025936238247,
                 "baseline": 4.64162006209146,
-                "improved": false
+                "improved": true
             },
             "qualifying_top1_accuracy": {
-                "advanced": 0.36363636363636365,
+                "advanced": 0.7777777777777778,
                 "baseline": 0.13636363636363635,
                 "improved": true
             },
             "qualifying_naive_top1_accuracy": {
-                "advanced": 0.4090909090909091,
+                "advanced": 0.16666666666666666,
                 "baseline": 0.4090909090909091,
                 "improved": false
             }
         },
         "test": {
             "mae": {
-                "advanced": 2.9466165413533836,
+                "advanced": 1.2625404424484499,
                 "baseline": 2.9466165413533836,
-                "improved": false
+                "improved": true
             },
             "rmse": {
-                "advanced": 3.8203419390583773,
+                "advanced": 1.5987281761401215,
                 "baseline": 3.8203419390583773,
-                "improved": false
+                "improved": true
             },
             "qualifying_top1_accuracy": {
-                "advanced": 0.4,
+                "advanced": 1.0,
                 "baseline": 0.35,
                 "improved": true
             },
             "qualifying_naive_top1_accuracy": {
-                "advanced": 0.35,
+                "advanced": 0.0,
                 "baseline": 0.35,
                 "improved": false
             }

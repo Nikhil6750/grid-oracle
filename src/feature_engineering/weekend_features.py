@@ -52,6 +52,30 @@ class WeekendFeatureBuilder:
             cb = CircuitFeatureBuilder(self.circuit_features)
             df = cb.add_circuit_features(df)
             
+        if 'driver_season_points_before_event' in df.columns:
+            df['driver_championship_rank_before_event'] = (
+                df.groupby(['season', 'round'])['driver_season_points_before_event']
+                .rank(ascending=False, method='min')
+            )
+        else:
+            df['driver_championship_rank_before_event'] = np.nan
+        df['driver_championship_rank_before_event'] = df['driver_championship_rank_before_event'].fillna(11)
+
+        if 'team_season_points_before_event' in df.columns:
+            df['team_constructor_rank_before_event'] = (
+                df.groupby(['season', 'round'])['team_season_points_before_event']
+                .rank(ascending=False, method='min')
+            )
+        else:
+            df['team_constructor_rank_before_event'] = np.nan
+        df['team_constructor_rank_before_event'] = df['team_constructor_rank_before_event'].fillna(6)
+
+        def _get_era(season):
+            if season <= 2021: return 0
+            elif season <= 2025: return 1
+            else: return 2
+        df['season_regulation_era'] = df['season'].apply(_get_era)
+            
         return df
 
     def build_post_qualifying(self, pre_weekend_df: pd.DataFrame, quali_df: pd.DataFrame) -> pd.DataFrame:

@@ -28,14 +28,31 @@ def load_and_join_data(features_df: pd.DataFrame, targets_path: str = "data/feat
     return joined_df
 
 def time_based_split(df: pd.DataFrame):
-    """Splits data into train (2018-2022), val (2023), and test (2024)."""
+    """
+    Dynamic split: uses the two most recent complete seasons for val/test,
+    everything earlier for training.
+    """
     if df.empty:
         return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
-        
-    train_mask = (df['season'] >= 2018) & (df['season'] <= 2022)
-    val_mask = (df['season'] == 2023)
-    test_mask = (df['season'] == 2024)
-    
+
+    all_seasons = sorted(df['season'].unique())
+
+    if len(all_seasons) < 3:
+        # Fallback: use 80/10/10 by row count
+        n = len(df)
+        train = df.iloc[:int(n*0.8)].copy()
+        val   = df.iloc[int(n*0.8):int(n*0.9)].copy()
+        test  = df.iloc[int(n*0.9):].copy()
+        return train, val, test
+
+    test_season  = all_seasons[-1]   # most recent complete season
+    val_season   = all_seasons[-2]   # second most recent
+    # All others are training
+
+    train_mask = df['season'] < val_season
+    val_mask   = df['season'] == val_season
+    test_mask  = df['season'] == test_season
+
     return df[train_mask].copy(), df[val_mask].copy(), df[test_mask].copy()
 
 def drop_missing_targets(df: pd.DataFrame, target_col: str) -> pd.DataFrame:

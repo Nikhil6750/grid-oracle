@@ -23,6 +23,25 @@ from src.modeling.model_registry import ModelRegistry
 import json
 from sklearn.metrics import mean_absolute_error
 
+def compute_sample_weights(df: pd.DataFrame) -> np.ndarray:
+    """
+    Weight recent seasons more heavily than older ones.
+    2026 regulations are a new era — 2022+ data is most relevant.
+    """
+    season_weights = {
+        2018: 0.3,
+        2019: 0.3,
+        2020: 0.4,
+        2021: 0.6,
+        2022: 1.0,
+        2023: 2.0,
+        2024: 3.5,
+        2025: 5.0,
+        2026: 8.0,
+    }
+    weights = df['season'].map(season_weights).fillna(1.0).values
+    return weights
+
 def _print_pred_debug(task, stage, split_name, pipeline, y_true, y_pred, df):
     """Prints detailed prediction diagnostics for regression tasks."""
     model_step = pipeline.named_steps['model']
@@ -133,7 +152,8 @@ def train_qualifying(stage, registry):
     y_test = test['target_qualifying_position']
     
     pipeline = get_baseline_pipeline(get_qualifying_advanced_model(), stage=stage)
-    pipeline.fit(train, y_train)
+    sample_weights = compute_sample_weights(train)
+    pipeline.fit(train, y_train, model__sample_weight=sample_weights)
     
     log_input_columns(pipeline, train, 'qualifying', stage, registry.debug_columns)
     
@@ -181,7 +201,8 @@ def train_race_finish(stage, registry):
     y_test = test['target_race_finish_position']
     
     pipeline = get_baseline_pipeline(get_race_finish_advanced_model(), stage=stage)
-    pipeline.fit(train, y_train)
+    sample_weights = compute_sample_weights(train)
+    pipeline.fit(train, y_train, model__sample_weight=sample_weights)
     
     log_input_columns(pipeline, train, 'race_finish', stage, registry.debug_columns)
     
@@ -234,7 +255,8 @@ def train_podium(stage, registry):
         print(f"\n[DEBUG] podium_{stage} Positive Rate -> Train: {y_train.mean():.3f} | Val: {y_val.mean():.3f} | Test: {y_test.mean():.3f}")
     
     pipeline = get_baseline_pipeline(get_podium_advanced_model(), stage=stage)
-    pipeline.fit(train, y_train)
+    sample_weights = compute_sample_weights(train)
+    pipeline.fit(train, y_train, model__sample_weight=sample_weights)
     
     log_input_columns(pipeline, train, 'podium', stage, registry.debug_columns)
     
@@ -278,7 +300,8 @@ def train_top10(stage, registry):
         print(f"\n[DEBUG] top10_{stage} Positive Rate -> Train: {y_train.mean():.3f} | Val: {y_val.mean():.3f} | Test: {y_test.mean():.3f}")
     
     pipeline = get_baseline_pipeline(get_top10_advanced_model(), stage=stage)
-    pipeline.fit(train, y_train)
+    sample_weights = compute_sample_weights(train)
+    pipeline.fit(train, y_train, model__sample_weight=sample_weights)
     
     log_input_columns(pipeline, train, 'top10', stage, registry.debug_columns)
     
@@ -300,16 +323,48 @@ def train_top10(stage, registry):
         
     registry.save_model(pipeline, f'top10_advanced_{stage}')
 
+def train_podium_ranker(train, val, test, stage, registry):
+    """
+    Trains a 3-class classifier (P1=1, P2=2, P3=3) on podium finishers only
+    using RandomForestClassifier with class_weight='balanced'.
+    Only rows where target_podium_position is not NaN are used.
+    """
+    from sklearn.ensemble import RandomForestClassifier
+
+    # Filter to podium rows only
+    podium_train = train[train['target_podium_position'].notna()].copy()
+    podium_val   = val[val['target_podium_position'].notna()].copy()
+    podium_test  = test[test['target_podium_position'].notna()].copy()
+
+    if len(podium_train) < 30:
+        print(f"[{stage}] Not enough podium rows to train ranker ({len(podium_train)}), skipping.")
+        return
+
+    y_train = podium_train['target_podium_position'].astype(int)
+    y_val   = podium_val['target_podium_position'].astype(int)
+
+    sample_weights = compute_sample_weights(podium_train)
+
+    model = RandomForestClassifier(
+        n_estimators=300, max_depth=6, class_weight='balanced',
+        random_state=42, n_jobs=-1
+    )
+    pipeline = get_baseline_pipeline(model, stage)
+    pipeline.fit(podium_train, y_train, model__sample_weight=sample_weights)
+
+    registry.save_model(pipeline, f"podium_ranker_advanced_{stage}")
+    print(f"[{stage}] Podium ranker trained and saved.")
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--task", type=str, choices=["qualifying", "race_finish", "podium", "top10", "all"], default="all")
-    parser.add_argument("--stage", type=str, choices=["pre_weekend", "post_qualifying", "all"], default="all")
+    parser.add_argument("--stage", type=str, choices=["pre_weekend", "post_qualifying", "post_sprint", "all"], default="all")
     parser.add_argument("--debug-columns", action="store_true", help="Print debug info about columns and splits")
     parser.add_argument("--debug-preds", action="store_true", help="Print diagnostic prediction stats for regression tasks")
     args = parser.parse_args()
     
     tasks = ["qualifying", "race_finish", "podium", "top10"] if args.task == "all" else [args.task]
-    stages = ["pre_weekend", "post_qualifying"] if args.stage == "all" else [args.stage]
+    stages = ["pre_weekend", "post_qualifying", "post_sprint"] if args.stage == "all" else [args.stage]
     
     registry = ModelRegistry(
         models_dir="models/advanced",
@@ -332,6 +387,17 @@ def main():
                 train_podium(stage, registry)
             elif task == "top10":
                 train_top10(stage, registry)
+
+    # Train podium ranker for all requested stages at the end
+    if args.task in ['podium', 'all']:
+        for stage in stages:
+            features = pd.read_parquet("data/features/race_features.parquet")
+            features = features[features['prediction_stage'] == stage]
+            if features.empty: continue
+            joined = load_and_join_data(features)
+            train, val, test = time_based_split(joined)
+            if not train.empty:
+                train_podium_ranker(train, val, test, stage, registry)
 
     # Generate comparison if all done
     generate_model_comparison()

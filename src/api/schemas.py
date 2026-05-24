@@ -9,6 +9,7 @@ class ModelsUsed(BaseModel):
     qualifying: Optional[str] = None
     race_finish: Optional[str] = None
     podium: Optional[str] = None
+    podium_ranker: Optional[str] = None
     top10: Optional[str] = None
 
 class PredictionResponse(BaseModel):
@@ -18,6 +19,7 @@ class PredictionResponse(BaseModel):
     pole_sitter_candidate: Optional[str] = None
     race_winner_candidate: Optional[str] = None
     podium_ranking: list[DriverPrediction] = []
+    podium_position_prediction: dict[str, str] = {}
     top10_ranking: list[DriverPrediction] = []
     models_used: ModelsUsed = ModelsUsed()
     warnings: list[str] = []

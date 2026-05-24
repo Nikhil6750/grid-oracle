@@ -50,14 +50,11 @@ def test_time_split():
     
     train, val, test = time_based_split(df)
     
-    assert len(train) == 3
-    assert set(train['season'].unique()) == {2018, 2020, 2022}
-    
+    assert len(train) == 4
     assert len(val) == 1
-    assert set(val['season'].unique()) == {2023}
-    
     assert len(test) == 1
-    assert set(test['season'].unique()) == {2024}
+    assert val.iloc[0]['season'] == 2024
+    assert test.iloc[0]['season'] == 2025
 
 def test_drop_missing_targets():
     """Test that drop_missing_targets properly drops rows and raises error on empty remaining."""

@@ -20,7 +20,7 @@ def main():
     args = parser.parse_args()
 
     try:
-        result = run_prediction(season=args.season, round_num=args.round, stage=args.stage)
+        result = run_prediction(season=args.season, round_num=args.round, stage=args.stage, save_parquet=True)
     except FileNotFoundError as e:
         print(f"Error: {e}")
         return
