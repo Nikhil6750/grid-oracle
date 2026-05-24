@@ -140,7 +140,7 @@ function PredictionPanel() {
             </div>
 
             {result.top10_ranking && result.top10_ranking.length > 0 && (
-              <div style={{ marginBottom: '24px' }}>
+              <div style={{ display: 'none', marginBottom: '24px' }}>
                 <div className="podium-head">Points Finishers (Not Race Order)</div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '8px' }}>
                   {result.top10_ranking.map((entry, i) => (
