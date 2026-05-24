@@ -4,7 +4,7 @@ function RaceHero() {
   const [cd, setCd] = useState({ d: '00', h: '00', m: '00', s: '00' });
 
   useEffect(() => {
-    const target = new Date('2026-05-25T18:00:00Z').getTime();
+    const target = new Date('2026-05-25T08:00:00Z').getTime();
     const pad = (n) => String(n).padStart(2, '0');
 
     const tick = () => {
@@ -45,12 +45,12 @@ function RaceHero() {
                 <div className="race-stat-val">1:13.078</div>
               </div>
               <div className="race-stat">
-                <div className="race-stat-label">Pole 2025</div>
-                <div className="race-stat-val">M. Verstappen</div>
+                <div className="race-stat-label">Pole Sitter</div>
+                <div className="race-stat-val">G. Russell</div>
               </div>
               <div className="race-stat">
                 <div className="race-stat-label">Dates</div>
-                <div className="race-stat-val">May 22 – 24</div>
+                <div className="race-stat-val">May 25, 2026</div>
               </div>
             </div>
           </div>

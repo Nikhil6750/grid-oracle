@@ -23,7 +23,7 @@ function Calendar() {
             <div className="col-num">§ 02</div>
             <div className="col-name">Season <em>Calendar</em></div>
           </div>
-          <div className="cal-meta" style={{ marginTop: 0 }}>23 Rounds · Mar → Dec 2026</div>
+          <div className="cal-meta" style={{ marginTop: 0 }}>22 Rounds · Mar → Dec 2026</div>
         </div>
       </div>
 
@@ -92,6 +92,126 @@ function Calendar() {
               <div className="cal-country">Spain</div>
               <div className="cal-flag-name">Barcelona</div>
               <div className="cal-date">Jun 12–14</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R08<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇦🇹</div>
+              <div className="cal-country">Austria</div>
+              <div className="cal-flag-name">Red Bull Ring</div>
+              <div className="cal-date">Jun 26-28</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R09<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇬🇧</div>
+              <div className="cal-country">UK</div>
+              <div className="cal-flag-name">Silverstone</div>
+              <div className="cal-date">Jul 03-05</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R10<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇧🇪</div>
+              <div className="cal-country">Belgium</div>
+              <div className="cal-flag-name">Spa-Francorchamps</div>
+              <div className="cal-date">Jul 24-26</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R11<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇭🇺</div>
+              <div className="cal-country">Hungary</div>
+              <div className="cal-flag-name">Hungaroring</div>
+              <div className="cal-date">Jul 31-Aug 02</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R12<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇳🇱</div>
+              <div className="cal-country">Netherlands</div>
+              <div className="cal-flag-name">Zandvoort</div>
+              <div className="cal-date">Aug 28-30</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R13<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇮🇹</div>
+              <div className="cal-country">Italy</div>
+              <div className="cal-flag-name">Monza</div>
+              <div className="cal-date">Sep 04-06</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R14<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇦🇿</div>
+              <div className="cal-country">Azerbaijan</div>
+              <div className="cal-flag-name">Baku</div>
+              <div className="cal-date">Sep 19-21</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R15<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇸🇬</div>
+              <div className="cal-country">Singapore</div>
+              <div className="cal-flag-name">Marina Bay</div>
+              <div className="cal-date">Oct 02-04</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R16<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇺🇸</div>
+              <div className="cal-country">USA</div>
+              <div className="cal-flag-name">Austin COTA</div>
+              <div className="cal-date">Oct 16-18</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R17<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇲🇽</div>
+              <div className="cal-country">Mexico</div>
+              <div className="cal-flag-name">Mexico City</div>
+              <div className="cal-date">Oct 23-25</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R18<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇧🇷</div>
+              <div className="cal-country">Brazil</div>
+              <div className="cal-flag-name">Interlagos</div>
+              <div className="cal-date">Nov 13-15</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R19<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇺🇸</div>
+              <div className="cal-country">Las Vegas</div>
+              <div className="cal-flag-name">Las Vegas Strip</div>
+              <div className="cal-date">Nov 19-21</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R20<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇶🇦</div>
+              <div className="cal-country">Qatar</div>
+              <div className="cal-flag-name">Lusail</div>
+              <div className="cal-date">Nov 28-30</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R21<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇦🇪</div>
+              <div className="cal-country">Abu Dhabi</div>
+              <div className="cal-flag-name">Yas Marina</div>
+              <div className="cal-date">Dec 05-07</div>
+            </div>
+
+            <div className="cal-round">
+              <div className="cal-rnum">R22<span className="cal-status-dot"></span></div>
+              <div className="cal-flag-emoji">🇿🇦</div>
+              <div className="cal-country">South Africa</div>
+              <div className="cal-flag-name">Kyalami</div>
+              <div className="cal-date">Dec 12–14</div>
             </div>
 
           </div>
