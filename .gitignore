@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+.DS_Store
 data/raw/fastf1_cache/
 data/processed/
 data/features/
