@@ -47,21 +47,26 @@ FastF1 API -> Ingestor -> Feature Store -> Model Pipeline -> REST API -> React F
 ```
 
 ---
-
 ## 📂 Folder Structure
-```text
-pitwall-ai-backend/
-├── frontend/             # React/Vite frontend application
-├── src/                  # Heavy backend source code (models, data ingestion, api)
-├── vercel_backend/       # Lightweight FastAPI application for Vercel deployment
-├── data/                 # Raw and processed FastF1 parquet data & feature store
-├── models/               # Trained scikit-learn joblib pipelines
-├── scripts/              # Setup and pipeline scripts
-├── tests/                # Unit testing
-└── requirements.txt      # Python dependencies
-```
 
----
+grid-oracle/
+├── frontend/                 # React/Vite frontend application
+├── src/                      # Main Python backend and ML source code
+│   ├── api/                  # FastAPI backend routes
+│   ├── config/               # Configuration files
+│   ├── data_ingestion/       # Data ingestion logic
+│   ├── feature_engineering/  # Feature generation logic
+│   ├── modeling/             # Model training and inference logic
+│   └── utils/                # Utility functions
+├── vercel_backend/           # Lightweight FastAPI backend for Vercel
+├── data/                     # Raw, processed, and feature data
+├── models/                   # Trained model files
+├── scripts/                  # Pipeline and utility scripts
+├── reports/                  # Reports and generated outputs
+├── docs/                     # Project documentation
+├── tests/                    # Test files
+├── requirements.txt          # Full Python backend and ML dependencies
+└── README.md
 
 ## 💻 How to Run Locally
 
