@@ -30,7 +30,7 @@ function Calendar() {
       <div style={{ padding: '24px' }}>
         <div className="cal-strip-wrap">
           <div className="cal-progress-track">
-            <div className="cal-progress-fill" style={{ width: '17.4%' }}></div>
+            <div className="cal-progress-fill" style={{ width: '22.7%' }}></div>
           </div>
           <div className="cal-strip" id="calStrip" ref={stripRef}>
             
@@ -70,16 +70,17 @@ function Calendar() {
               <div className="cal-winner">K. Antonelli</div>
             </div>
             
-            <div className="cal-round next">
-              <div className="cal-rnum">R05 · NEXT<span className="cal-status-dot"></span></div>
+            <div className="cal-round done">
+              <div className="cal-rnum">R05<span className="cal-status-dot"></span></div>
               <div className="cal-flag-emoji">🇨🇦</div>
               <div className="cal-country">Canada</div>
               <div className="cal-flag-name">Montreal</div>
               <div className="cal-date">May 22–24</div>
+              <div className="cal-winner">K. Antonelli</div>
             </div>
             
-            <div className="cal-round">
-              <div className="cal-rnum">R06<span className="cal-status-dot"></span></div>
+            <div className="cal-round next">
+              <div className="cal-rnum">R06 · NEXT<span className="cal-status-dot"></span></div>
               <div className="cal-flag-emoji">🇲🇨</div>
               <div className="cal-country">Monaco</div>
               <div className="cal-flag-name">Monte Carlo</div>

@@ -4,7 +4,7 @@ import { checkHealth, getRacePrediction } from '../services/api';
 function PredictionPanel() {
   const [status, setStatus] = useState('checking');
   const [season, setSeason] = useState('2026');
-  const [round, setRound] = useState('5');
+  const [round, setRound] = useState('6');
   const [stage, setStage] = useState('post_qualifying');
   
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ function PredictionPanel() {
       setStatus(ok ? 'connected' : 'offline');
       if (ok) {
         setLoading(true);
-        getRacePrediction({ season: '2026', round: '5', stage: 'post_qualifying' })
+        getRacePrediction({ season: '2026', round: '6', stage: 'post_qualifying' })
           .then(data => setResult(data))
           .catch(err => setError(err.message))
           .finally(() => setLoading(false));
@@ -45,7 +45,7 @@ function PredictionPanel() {
     <section className="pred-panel">
       <div className="pred-panel-inner">
         <div className="pred-head">
-          <h2 className="pred-title">GRID ORACLE <em>— CANADIAN GP PREDICTION</em></h2>
+          <h2 className="pred-title">GRID ORACLE <em>— MONACO GP PREDICTION</em></h2>
           <div className="pred-status">
             <span className="pred-dot" style={{ background: status === 'connected' ? 'var(--aston)' : 'var(--racing)' }}></span>
             {status}

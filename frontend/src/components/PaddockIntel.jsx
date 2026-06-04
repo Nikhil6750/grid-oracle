@@ -9,7 +9,7 @@ function PaddockIntel() {
   useEffect(() => {
     async function fetchResults() {
       try {
-        const race = await getLiveRaceResults('2026', '4');
+        const race = await getLiveRaceResults('2026', '5');
         if (race && race.Results && race.Results.length >= 3) {
           setPodium(race.Results.slice(0, 3).map(r => ({
             name: `${r.Driver.givenName.charAt(0)}. ${r.Driver.familyName}`,
@@ -32,9 +32,9 @@ function PaddockIntel() {
     function setFallback() {
       setIsLive(false);
       setPodium([
-        { name: 'A.K. Antonelli', team: 'Mercedes', time: '1:33:19.273', pts: '25', car: '12' },
-        { name: 'L. Norris', team: 'McLaren', time: '+3.264s', pts: '18', car: '1' },
-        { name: 'O. Piastri', team: 'McLaren', time: '+27.092s', pts: '15', car: '81' },
+        { name: 'K. Antonelli', team: 'Mercedes', time: '1:41:32.000', pts: '25', car: '12' },
+        { name: 'L. Hamilton', team: 'Ferrari', time: '+5.2s', pts: '18', car: '44' },
+        { name: 'M. Verstappen', team: 'Red Bull', time: '+12.8s', pts: '15', car: '1' },
       ]);
     }
 
@@ -51,7 +51,7 @@ function PaddockIntel() {
 
       <div className="podium-block">
         <div className="podium-head" style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <span>Miami GP · Miami Autodrome · Result</span>
+          <span>Canadian GP · Circuit Gilles Villeneuve · Result</span>
           {!isLive && !loading && <span style={{ color: 'var(--ink-3)', fontSize: '8px', background: 'rgba(0,0,0,0.05)', padding: '2px 4px' }}>STATIC FALLBACK</span>}
         </div>
         <div className="podium-list">
@@ -74,27 +74,27 @@ function PaddockIntel() {
 
       <div className="news-block">
         <article className="news-item lead">
-          <div className="news-meta"><span className="news-kicker">Team Orders</span><span className="news-num">01</span></div>
-          <h3 className="news-headline">Russell vs Antonelli: Mercedes' civil war reaches boiling point in Canada</h3>
-          <p className="news-body">Russell won the Sprint after a controversial clash with Antonelli, who was told to hold position. Wolff now faces his toughest call of the season heading into Sunday's race.</p>
+          <div className="news-meta"><span className="news-kicker">Title Race</span><span className="news-num">01</span></div>
+          <h3 className="news-headline">Antonelli extends lead to 43 points after dominant Canadian GP win</h3>
+          <p className="news-body">Kimi Antonelli claimed his fourth win of 2026 in wet Montreal conditions, extending his championship lead over Russell who finished outside the podium.</p>
         </article>
         
         <article className="news-item neutral">
-          <div className="news-meta"><span className="news-kicker">Title Race</span><span className="news-num">02</span></div>
-          <h3 className="news-headline">Antonelli leads by 18 points but Russell is closing fast</h3>
-          <p className="news-body">After four rounds, ANT heads RUS by 18 points with Russell on pole for today's Canadian GP. McLaren's Norris is 47 back but showed race pace in Miami.</p>
+          <div className="news-meta"><span className="news-kicker">Monaco Preview</span><span className="news-num">02</span></div>
+          <h3 className="news-headline">Hamilton eyeing back-to-back podiums heading into Monaco</h3>
+          <p className="news-body">Lewis Hamilton finished P2 in Canada and arrives at Monte Carlo with strong momentum. Ferrari's strategy team believe the narrow streets suit their 2026 package.</p>
         </article>
 
         <article className="news-item neutral">
           <div className="news-meta"><span className="news-kicker">Weather</span><span className="news-num">03</span></div>
-          <h3 className="news-headline">Rain chaos predicted for Montreal — Verstappen warns of 'carnage'</h3>
-          <p className="news-body">Wet conditions forecast for Sunday's race. Verstappen, who qualified P6, says unpredictable weather could shake up the entire order at Circuit Gilles Villeneuve.</p>
+          <h3 className="news-headline">Light showers possible in Monaco — strategy could be decisive</h3>
+          <p className="news-body">Early forecasts suggest mild temperatures in the mid-20s with possible light drizzle during practice and qualifying at Circuit de Monaco.</p>
         </article>
 
         <article className="news-item">
-          <div className="news-meta"><span className="news-kicker">Grid</span><span className="news-num">04</span></div>
-          <h3 className="news-headline">Hamilton under investigation again after Canadian GP qualifying</h3>
-          <p className="news-body">FIA stewards launched multiple post-qualifying investigations including one involving Hamilton. Russell starts P1, Antonelli P2, Norris P3, Piastri P4.</p>
+          <div className="news-meta"><span className="news-kicker">Grid Oracle</span><span className="news-num">04</span></div>
+          <h3 className="news-headline">PitWall AI Monaco prediction: coming after qualifying Saturday</h3>
+          <p className="news-body">Our ML model will generate the Monaco podium prediction post-qualifying. Last race: ANT P1 correct. Wet skill features being upgraded for Monte Carlo.</p>
         </article>
       </div>
     </div>

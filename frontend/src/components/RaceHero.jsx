@@ -4,7 +4,7 @@ function RaceHero() {
   const [cd, setCd] = useState({ d: '00', h: '00', m: '00', s: '00' });
 
   useEffect(() => {
-    const target = new Date('2026-05-24T20:00:00Z').getTime();
+    const target = new Date('2026-06-07T13:00:00Z').getTime();
     const pad = (n) => String(n).padStart(2, '0');
 
     const tick = () => {
@@ -32,12 +32,12 @@ function RaceHero() {
         <div className="race-grid">
           <div className="race-left">
             <div className="race-meta-row">
-              <span className="race-round">◆ Round 05 · Up Next</span>
-              <span className="race-flag-big">🇨🇦</span>
+              <span className="race-round">◆ Round 06 · Up Next</span>
+              <span className="race-flag-big">🇲🇨</span>
             </div>
-            <h2 className="race-name">Canadian <em>Grand Prix</em></h2>
-            <div className="race-circuit"><strong>Circuit Gilles Villeneuve</strong> · Montreal</div>
-            <div className="race-circuit">Round 5 of 23 · 70 laps · 305.270 km</div>
+            <h2 className="race-name">Monaco <em>Grand Prix</em></h2>
+            <div className="race-circuit"><strong>Circuit de Monaco</strong> · Monte Carlo</div>
+            <div className="race-circuit">Round 6 of 22 · 78 laps · 260.286 km</div>
           </div>
 
           <div className="race-right">
