@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { getLiveRaceResults } from '../services/api';
+import { getLastRaceResult } from '../services/raceService';
 
 function PaddockIntel() {
   const [podium, setPodium] = useState([]);
+  const [lastRace, setLastRace] = useState(null);
   const [isLive, setIsLive] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchResults() {
       try {
-        const race = await getLiveRaceResults('2026', '5');
-        if (race && race.Results && race.Results.length >= 3) {
-          setPodium(race.Results.slice(0, 3).map(r => ({
-            name: `${r.Driver.givenName.charAt(0)}. ${r.Driver.familyName}`,
-            team: r.Constructor.name,
-            time: r.Time ? r.Time.time : r.status,
+        const race = await getLastRaceResult();
+        if (race && race.results && race.results.length >= 3) {
+          setLastRace(race);
+          setPodium(race.results.slice(0, 3).map(r => ({
+            name: r.name,
+            team: r.team,
+            time: r.time,
             pts: r.points,
             car: r.number
           })));
@@ -51,7 +53,7 @@ function PaddockIntel() {
 
       <div className="podium-block">
         <div className="podium-head" style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <span>Canadian GP · Circuit Gilles Villeneuve · Result</span>
+          <span>{lastRace ? `${lastRace.raceName} · ${lastRace.circuitName} · Result` : 'Last Race · Result'}</span>
           {!isLive && !loading && <span style={{ color: 'var(--ink-3)', fontSize: '8px', background: 'rgba(0,0,0,0.05)', padding: '2px 4px' }}>STATIC FALLBACK</span>}
         </div>
         <div className="podium-list">
