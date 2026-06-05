@@ -2,6 +2,7 @@ import React from 'react';
 import Ticker from './components/Ticker';
 import Hero from './components/Hero';
 import RaceHero from './components/RaceHero';
+import SessionResults from './components/SessionResults';
 import PredictionPanel from './components/PredictionPanel';
 import Calendar from './components/Calendar';
 import Standings from './components/Standings';
@@ -15,6 +16,7 @@ function App() {
       <Ticker />
       <Hero />
       <RaceHero />
+      <SessionResults season="2026" round="6" />
       <PredictionPanel />
       
       <section className="main-section">
