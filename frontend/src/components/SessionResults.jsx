@@ -169,7 +169,7 @@ function SessionResults({ season = '2026', round = '6' }) {
         </div>
 
         <div style={{ marginTop: '12px', fontSize: '11px', color: 'var(--ink-3)', fontFamily: "'Inter', sans-serif" }}>
-          Data via Jolpica F1 API Â· Refresh page for latest results
+          Data via Jolpica F1 API · Refresh page for latest results
         </div>
       </div>
     </section>
