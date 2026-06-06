@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { getNextRace } from '../services/raceService';
 
 const API_BASE = 'http://127.0.0.1:8000';
 const WS_BASE = 'ws://127.0.0.1:8000';
@@ -40,7 +41,7 @@ function ProbBar({ value }) {
   );
 }
 
-function LivePrediction({ season = '2026', round = '6' }) {
+function LivePrediction() {
   const [snapshot, setSnapshot] = useState(null);
   const [connected, setConnected] = useState(false);
   const [usingRest, setUsingRest] = useState(false);
@@ -52,7 +53,7 @@ function LivePrediction({ season = '2026', round = '6' }) {
   const mountedRef = useRef(true);
 
   // --- REST fallback ------------------------------------------------------ //
-  const fetchRest = useCallback(async () => {
+  const fetchRest = useCallback(async (season, round) => {
     try {
       const res = await fetch(`${API_BASE}/live/current/${season}/${round}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -68,12 +69,12 @@ function LivePrediction({ season = '2026', round = '6' }) {
     } catch (e) {
       if (mountedRef.current) setError('Backend offline — prediction unavailable.');
     }
-  }, [season, round]);
+  }, []);
 
-  const startRestPolling = useCallback(() => {
+  const startRestPolling = useCallback((season, round) => {
     if (restTimerRef.current) return;
-    fetchRest();
-    restTimerRef.current = setInterval(fetchRest, 30000);
+    fetchRest(season, round);
+    restTimerRef.current = setInterval(() => fetchRest(season, round), 30000);
   }, [fetchRest]);
 
   const stopRestPolling = useCallback(() => {
@@ -84,12 +85,12 @@ function LivePrediction({ season = '2026', round = '6' }) {
   }, []);
 
   // --- WebSocket with auto-reconnect ------------------------------------- //
-  const connect = useCallback(() => {
+  const connect = useCallback((season, round) => {
     let ws;
     try {
       ws = new WebSocket(`${WS_BASE}/ws/live/${season}/${round}`);
     } catch {
-      startRestPolling();
+      startRestPolling(season, round);
       return;
     }
     wsRef.current = ws;
@@ -119,18 +120,27 @@ function LivePrediction({ season = '2026', round = '6' }) {
       if (!mountedRef.current) return;
       setConnected(false);
       // Fall back to REST and schedule a reconnect attempt.
-      startRestPolling();
-      reconnectRef.current = setTimeout(connect, 5000);
+      startRestPolling(season, round);
+      reconnectRef.current = setTimeout(() => connect(season, round), 5000);
     };
 
     ws.onerror = () => {
       try { ws.close(); } catch { /* noop */ }
     };
-  }, [season, round, startRestPolling, stopRestPolling]);
+  }, [startRestPolling, stopRestPolling]);
 
   useEffect(() => {
     mountedRef.current = true;
-    connect();
+
+    const initConnection = async () => {
+      const race = await getNextRace();
+      if (!mountedRef.current || !race) return;
+      const season = race.raceDate?.slice(0, 4) || String(race.raceDateTime.getFullYear());
+      const round = String(race.round);
+      connect(season, round);
+    };
+
+    initConnection();
     return () => {
       mountedRef.current = false;
       if (reconnectRef.current) clearTimeout(reconnectRef.current);

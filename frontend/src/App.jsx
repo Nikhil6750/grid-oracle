@@ -18,7 +18,7 @@ function App() {
       <Hero />
       <RaceHero />
       <SessionResults season="2026" round="6" />
-      <LivePrediction season="2026" round="6" />
+      <LivePrediction />
       <PredictionPanel />
       
       <section className="main-section">
