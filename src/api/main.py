@@ -5,6 +5,7 @@ from fastapi import FastAPI, Query, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from src.api.schemas import PredictionResponse, HealthResponse, ErrorResponse
 from src.api.prediction_service import run_prediction
+from src.api.live_router import router as live_router
 import subprocess
 from pydantic import BaseModel
 
@@ -29,6 +30,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+app.include_router(live_router)
 
 
 @app.get("/health", response_model=HealthResponse)

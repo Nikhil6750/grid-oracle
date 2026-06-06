@@ -95,8 +95,8 @@ function PaddockIntel() {
 
         <article className="news-item">
           <div className="news-meta"><span className="news-kicker">Grid Oracle</span><span className="news-num">04</span></div>
-          <h3 className="news-headline">PitWall AI Monaco prediction: coming after qualifying Saturday</h3>
-          <p className="news-body">Our ML model will generate the Monaco podium prediction post-qualifying. Last race: ANT P1 correct. Wet skill features being upgraded for Monte Carlo.</p>
+          <h3 className="news-headline">PitWall AI Monaco prediction: HAM wins, ANT P2, LEC P3</h3>
+          <p className="news-body">Post-qualifying model gives HAM 53% podium probability. Monaco's narrow streets favour race craft over outright pace — Hamilton's 6 Monaco wins weigh heavily in the model.</p>
         </article>
       </div>
     </div>

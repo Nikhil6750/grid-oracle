@@ -355,6 +355,40 @@ def train_podium_ranker(train, val, test, stage, registry):
     registry.save_model(pipeline, f"podium_ranker_advanced_{stage}")
     print(f"[{stage}] Podium ranker trained and saved.")
 
+def train_wet_race_model(stage, registry):
+    print(f"Training Wet Race Podium Model ({stage})...")
+    from src.modeling.advanced_models import get_wet_race_podium_model
+    
+    features = pd.read_parquet("data/features/race_features.parquet")
+    features = features[features['prediction_stage'] == stage]
+    
+    # Filter to wet races only
+    wet_features = features[features['weather_rainfall_flag'] == 1.0]
+    print(f"  Wet race rows: {len(wet_features)} out of {len(features)}")
+    
+    if len(wet_features) < 50:
+        print(f"  Not enough wet race data ({len(wet_features)} rows), skipping.")
+        return
+    
+    from src.modeling.data import load_and_join_data, time_based_split, drop_missing_targets
+    joined = load_and_join_data(wet_features)
+    joined['target_podium_binary'] = joined['target_podium_class'].isin([1, 2, 3]).astype(int)
+    joined = drop_missing_targets(joined, 'target_podium_class')
+    
+    train, val, test = time_based_split(joined)
+    if train.empty or len(train) < 30:
+        print(f"  Not enough wet training data ({len(train)} rows), skipping.")
+        return
+    
+    y_train = train['target_podium_binary']
+    sample_weights = compute_sample_weights(train)
+    
+    pipeline = get_baseline_pipeline(get_wet_race_podium_model(), stage=stage)
+    pipeline.fit(train, y_train, model__sample_weight=sample_weights)
+    
+    registry.save_model(pipeline, f'wet_race_podium_{stage}')
+    print(f"  Wet race model trained and saved. ({len(train)} train rows)")
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--task", type=str, choices=["qualifying", "race_finish", "podium", "top10", "all"], default="all")
@@ -398,6 +432,7 @@ def main():
             train, val, test = time_based_split(joined)
             if not train.empty:
                 train_podium_ranker(train, val, test, stage, registry)
+                train_wet_race_model(stage, registry)
 
     # Generate comparison if all done
     generate_model_comparison()

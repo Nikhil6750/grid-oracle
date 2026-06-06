@@ -136,7 +136,13 @@
         "circuit_podium_rate",
         "circuit_podium_rate_missing",
         "form_recency_ratio",
-        "form_recency_ratio_missing"
+        "form_recency_ratio_missing",
+        "is_street_circuit",
+        "is_street_circuit_missing",
+        "quali_dominance_score",
+        "quali_dominance_score_missing",
+        "street_quali_advantage",
+        "street_quali_advantage_missing"
     ],
     "top10_post_qualifying": [
         "team",
@@ -275,7 +281,13 @@
         "circuit_podium_rate",
         "circuit_podium_rate_missing",
         "form_recency_ratio",
-        "form_recency_ratio_missing"
+        "form_recency_ratio_missing",
+        "is_street_circuit",
+        "is_street_circuit_missing",
+        "quali_dominance_score",
+        "quali_dominance_score_missing",
+        "street_quali_advantage",
+        "street_quali_advantage_missing"
     ],
     "podium_pre_weekend": [
         "team",
@@ -756,7 +768,13 @@
         "circuit_podium_rate",
         "circuit_podium_rate_missing",
         "form_recency_ratio",
-        "form_recency_ratio_missing"
+        "form_recency_ratio_missing",
+        "is_street_circuit",
+        "is_street_circuit_missing",
+        "quali_dominance_score",
+        "quali_dominance_score_missing",
+        "street_quali_advantage",
+        "street_quali_advantage_missing"
     ],
     "qualifying_pre_weekend": [
         "team",

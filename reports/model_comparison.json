@@ -2,54 +2,54 @@
     "podium_post_qualifying": {
         "val": {
             "roc_auc": {
-                "advanced": 0.9320209973753281,
+                "advanced": 0.9468941382327208,
                 "baseline": 0.9023987872302479,
                 "improved": true
             },
             "pr_auc": {
-                "advanced": 0.7456684397958603,
+                "advanced": 0.8002555934772488,
                 "baseline": 0.6630689170757104,
                 "improved": true
             },
             "precision": {
-                "advanced": 0.5833333333333334,
+                "advanced": 0.6956521739130435,
                 "baseline": 0.4214876033057851,
                 "improved": true
             },
             "recall": {
-                "advanced": 0.7777777777777778,
+                "advanced": 0.7111111111111111,
                 "baseline": 0.8095238095238095,
                 "improved": false
             },
             "top3_accuracy": {
-                "advanced": 0.711111111111111,
+                "advanced": 0.7333333333333333,
                 "baseline": 0.5873015873015873,
                 "improved": true
             }
         },
         "test": {
             "roc_auc": {
-                "advanced": 0.9605263157894737,
+                "advanced": 0.9780701754385965,
                 "baseline": 0.9226155358898722,
                 "improved": true
             },
             "pr_auc": {
-                "advanced": 0.7659090909090909,
+                "advanced": 0.8178571428571427,
                 "baseline": 0.584533232767795,
                 "improved": true
             },
             "precision": {
-                "advanced": 0.8333333333333334,
+                "advanced": 0.8,
                 "baseline": 0.448,
                 "improved": true
             },
             "recall": {
-                "advanced": 0.8333333333333334,
+                "advanced": 0.6666666666666666,
                 "baseline": 0.9333333333333333,
                 "improved": false
             },
             "top3_accuracy": {
-                "advanced": 0.6666666666666666,
+                "advanced": 0.8333333333333333,
                 "baseline": 0.6333333333333334,
                 "improved": true
             }
@@ -58,49 +58,49 @@
     "top10_post_qualifying": {
         "val": {
             "roc_auc": {
-                "advanced": 0.828903803131991,
+                "advanced": 0.8405369127516779,
                 "baseline": 0.8462292093871041,
                 "improved": false
             },
             "pr_auc": {
-                "advanced": 0.8207323382862063,
+                "advanced": 0.8406821492471683,
                 "baseline": 0.8004422405387943,
                 "improved": true
             },
             "precision": {
-                "advanced": 0.7484662576687117,
+                "advanced": 0.7564102564102564,
                 "baseline": 0.7612612612612613,
                 "improved": false
             },
             "recall": {
-                "advanced": 0.8133333333333334,
+                "advanced": 0.7866666666666666,
                 "baseline": 0.8047619047619048,
-                "improved": true
+                "improved": false
             },
             "top10_accuracy": {
-                "advanced": 0.7533333333333335,
+                "advanced": 0.7600000000000001,
                 "baseline": 0.7666666666666666,
                 "improved": false
             }
         },
         "test": {
             "roc_auc": {
-                "advanced": 0.8541666666666666,
+                "advanced": 0.8625,
                 "baseline": 0.8930150753768843,
                 "improved": false
             },
             "pr_auc": {
-                "advanced": 0.8492719840289875,
+                "advanced": 0.8711285019347177,
                 "baseline": 0.8822908085485324,
                 "improved": false
             },
             "precision": {
-                "advanced": 0.7894736842105263,
+                "advanced": 0.8,
                 "baseline": 0.7777777777777778,
                 "improved": true
             },
             "recall": {
-                "advanced": 0.75,
+                "advanced": 0.8,
                 "baseline": 0.875,
                 "improved": false
             },
@@ -272,12 +272,12 @@
     "race_finish_post_qualifying": {
         "val": {
             "mae": {
-                "advanced": 3.1310832049992983,
+                "advanced": 3.24258167300262,
                 "baseline": 3.768496420047733,
                 "improved": true
             },
             "rmse": {
-                "advanced": 4.266273647691135,
+                "advanced": 4.271696087262708,
                 "baseline": 5.2781804198182485,
                 "improved": true
             },
@@ -294,19 +294,19 @@
         },
         "test": {
             "mae": {
-                "advanced": 3.325052215509419,
+                "advanced": 3.5218717304764393,
                 "baseline": 2.6867167919799497,
                 "improved": false
             },
             "rmse": {
-                "advanced": 4.522712826804216,
+                "advanced": 4.569007830814697,
                 "baseline": 3.8329791707375964,
                 "improved": false
             },
             "race_finish_top1_accuracy": {
-                "advanced": 0.0,
+                "advanced": 0.5,
                 "baseline": 0.15,
-                "improved": false
+                "improved": true
             },
             "race_finish_naive_top1_accuracy": {
                 "advanced": 1.0,

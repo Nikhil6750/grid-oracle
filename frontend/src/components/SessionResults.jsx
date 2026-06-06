@@ -102,7 +102,7 @@ function SessionResults({ season = '2026', round = '6' }) {
     <section className="pred-panel">
       <div className="pred-panel-inner">
         <div className="pred-head">
-          <h2 className="pred-title">SESSION <em>â€” {session.type.toUpperCase()}</em></h2>
+          <h2 className="pred-title">SESSION <em>&mdash; {session.type.toUpperCase()}</em></h2>
           <div className="pred-status">
             <span className="pred-dot" style={{ background: 'var(--aston)' }}></span>
             {session.raceName}
