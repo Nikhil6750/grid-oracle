@@ -41,11 +41,21 @@ function ProbBar({ value }) {
   );
 }
 
+function formatGap(driver) {
+  if (driver.gap_to_leader_display) return driver.gap_to_leader_display;
+  if (typeof driver.gap_to_leader === 'number') {
+    return driver.gap_to_leader === 0 ? 'LEADER' : `+${driver.gap_to_leader.toFixed(3)}`;
+  }
+  return '--';
+}
+
 function LivePrediction() {
   const [snapshot, setSnapshot] = useState(null);
   const [connected, setConnected] = useState(false);
   const [usingRest, setUsingRest] = useState(false);
   const [error, setError] = useState(null);
+  const [lastUpdatedAt, setLastUpdatedAt] = useState(null);
+  const [now, setNow] = useState(Date.now());
 
   const wsRef = useRef(null);
   const reconnectRef = useRef(null);
@@ -63,6 +73,7 @@ function LivePrediction() {
         setError(data.message || 'No data available');
       } else {
         setSnapshot(data);
+        setLastUpdatedAt(Date.now());
         setError(null);
       }
       setUsingRest(true);
@@ -74,7 +85,7 @@ function LivePrediction() {
   const startRestPolling = useCallback((season, round) => {
     if (restTimerRef.current) return;
     fetchRest(season, round);
-    restTimerRef.current = setInterval(() => fetchRest(season, round), 30000);
+    restTimerRef.current = setInterval(() => fetchRest(season, round), 5000);
   }, [fetchRest]);
 
   const stopRestPolling = useCallback(() => {
@@ -109,6 +120,7 @@ function LivePrediction() {
         const data = JSON.parse(event.data);
         if (data.type === 'prediction') {
           setSnapshot(data);
+          setLastUpdatedAt(Date.now());
           setError(null);
         } else if (data.type === 'error') {
           setError(data.message || 'No data available');
@@ -151,13 +163,26 @@ function LivePrediction() {
     };
   }, [connect, stopRestPolling]);
 
+  useEffect(() => {
+    const timer = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   const drivers = snapshot?.drivers || [];
-  const isLive = snapshot?.mode === 'LIVE';
+  const sessionStatus = snapshot?.session_status || snapshot?.mode;
+  const isLive = sessionStatus === 'LIVE';
   const badge = !connected && !usingRest
     ? { label: 'OFFLINE', color: 'var(--ink-3)' }
-    : isLive
+    : sessionStatus === 'LIVE'
       ? { label: 'LIVE', color: 'var(--gold)' }
-      : { label: 'REPLAY', color: 'var(--aston)' };
+      : sessionStatus === 'WAITING'
+        ? { label: 'WAITING', color: 'var(--ink-3)' }
+        : sessionStatus === 'FINISHED'
+          ? { label: 'FINISHED', color: 'var(--aston)' }
+          : { label: 'REPLAY', color: 'var(--aston)' };
+  const trackStatus = snapshot?.track_status || 'GREEN';
+  const trackStatusColor = trackStatus === 'SC' ? 'var(--gold)' : trackStatus === 'VSC' ? 'var(--paper-3)' : 'var(--aston)';
+  const secondsSinceUpdate = lastUpdatedAt ? Math.max(0, Math.floor((now - lastUpdatedAt) / 1000)) : null;
 
   return (
     <section className="pred-panel">
@@ -173,6 +198,11 @@ function LivePrediction() {
             {snapshot && (
               <span style={{ marginLeft: '10px', color: 'var(--ink-3)' }}>
                 LAP {snapshot.lap_n}/{snapshot.total_laps}
+              </span>
+            )}
+            {snapshot?.track_status && (
+              <span style={{ marginLeft: '10px', padding: '2px 6px', background: trackStatusColor, color: trackStatus === 'VSC' ? 'var(--ink)' : '#fff', fontSize: '10px' }}>
+                {trackStatus}
               </span>
             )}
           </div>
@@ -200,6 +230,7 @@ function LivePrediction() {
                   <th style={{ padding: '8px 12px', textAlign: 'left', width: '52px' }}>Pred</th>
                   <th style={{ padding: '8px 12px', textAlign: 'left', width: '44px' }}>Now</th>
                   <th style={{ padding: '8px 12px', textAlign: 'left' }}>Driver</th>
+                  <th style={{ padding: '8px 12px', textAlign: 'left', width: '88px' }}>Gap</th>
                   <th style={{ padding: '8px 12px', textAlign: 'left', width: '160px' }}>Win Probability</th>
                   <th style={{ padding: '8px 12px', textAlign: 'left' }}>Tyre</th>
                   <th style={{ padding: '8px 12px', textAlign: 'right', width: '48px' }}>Pits</th>
@@ -231,6 +262,7 @@ function LivePrediction() {
                         )}
                       </td>
                       <td style={{ padding: '10px 12px', fontWeight: 700, color: 'var(--ink)' }}>{d.driver_code}</td>
+                      <td style={{ padding: '10px 12px', color: 'var(--ink-2)' }}>{formatGap(d)}</td>
                       <td style={{ padding: '10px 12px' }}><ProbBar value={d.win_probability} /></td>
                       <td style={{ padding: '10px 12px' }}>
                         <CompoundPill code={d.tyre_compound} life={d.tyre_life} />
@@ -248,7 +280,8 @@ function LivePrediction() {
 
         <div style={{ marginTop: '12px', fontSize: '11px', color: 'var(--ink-3)', fontFamily: "'Inter', sans-serif" }}>
           {snapshot?.event_name ? `${snapshot.event_name} · ` : ''}
-          Predicted final positions update every 30s
+          Predicted final positions update every 5s
+          {secondsSinceUpdate !== null ? ` · Last updated: ${secondsSinceUpdate} seconds ago` : ''}
           {usingRest && !connected ? ' · REST fallback' : ''}
         </div>
       </div>

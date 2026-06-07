@@ -16,3 +16,18 @@ data/news_cache/
 stderr.txt
 test_out.txt
 *.tmp
+
+# Vite build cache
+frontend/.vite/
+
+# Trained ML models (too large for git)
+models/advanced/*.joblib
+models/live/*.joblib
+
+# Unused assets
+frontend/src/assets/react.svg
+frontend/src/assets/vite.svg
+
+# Internal files
+LIVE_PREDICTION_ENGINE_PROMPT.md
+*.md.bak

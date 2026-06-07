@@ -1,129 +1,105 @@
-# Grid Oracle 🏎️🔮
+# PitWall AI — F1 Race Intelligence System 🏎️🔮
 
-> **F1 race prediction web app that estimates likely top 3 drivers using race history, qualifying, sprint, practice, weather, and performance signals.**
-
----
-
-## 🌐 Live Demo
-- **Frontend Live URL**: https://grid-oracle-nine.vercel.app/
-- **Backend Live URL**: https://grid-oracle-backend.vercel.app/
-
-*(Note: The current backend deployment on Vercel is lightweight. Heavy machine learning and prediction logic might need a dedicated ML-friendly hosting service in the future. The `/predict` API may be placeholder or limited depending on the deployed version.)*
+> ML-powered Formula 1 prediction system with live race tracking. PitWall AI forecasts podium finishers from qualifying data and updates win/podium probabilities in real time as a race unfolds.
 
 ---
 
-## 🏎️ Problem Statement
-Formula 1 is a sport where fractions of a second matter, but predicting race outcomes is incredibly complex. Traditional predictions often rely heavily on gut feeling or simple qualifying order. They fail to account for the interplay of changing track conditions, team strategy, recent driver form, wet-weather skills, and historical data patterns.
+## ✨ Features
 
-## ✨ What the Project Does
-Grid Oracle is an automated pre-race prediction system. It ingests live F1 session data and calculates the likely top 3 podium finishers before lights out. It does this by evaluating rolling driver and team statistics, qualifying lap details, track weather, and driver wet-skill ratings to produce an informed, data-driven forecast.
-
-## 🚀 Why This Project Is Useful
-This project bridges the gap between raw telemetry and fan accessibility. It provides motorsport enthusiasts, data science students, and analysts with a clear, statistically backed look at upcoming races. For developers and recruiters, it demonstrates the integration of external APIs (FastF1), machine learning pipelines, and modern web frameworks (React/FastAPI) into a unified, user-friendly application.
-
----
-
-## 🌟 Key Features
-- **Data-Driven Predictions**: Uses historical driver stats, qualifying lap details, and recent 2026 in-season form.
-- **Advanced Feature Engineering**: Considers team strategy DNA, wet-skill ratings, and weather forecasts (rainfall flag, track temp, humidity, wind).
-- **Leakage-Safe Modeling**: Strictly separates historical data to prevent future-data leakage during model training.
-- **Modern Dashboard UI**: A clean, responsive frontend tailored for a premium F1 editorial feel.
-- **RESTful API Backend**: A fast and lightweight Python backend to serve predictions.
+- **Post-qualifying podium prediction** — XGBoost ensemble that estimates the likely top 3 finishers once the grid is set.
+- **Live race prediction** — win/podium probabilities that refresh every 5 seconds using live timing from the OpenF1 API.
+- **Wet race specialist model** — a dedicated model that takes over when rain is forecast or detected.
+- **Street circuit modifier** — adjusts predictions for the unique characteristics of street tracks (Monaco, Miami, etc.).
+- **React frontend** — responsive dashboard with a live timing leaderboard and prediction panel.
 
 ---
 
 ## 🛠️ Tech Stack
-- **Frontend**: React, Vite, Tailwind CSS
-- **Backend**: Python 3.11, FastAPI, Uvicorn
-- **Machine Learning**: scikit-learn, pandas
-- **Data Source**: FastF1 API
-- **Deployment**: Vercel (Frontend & Lightweight Backend)
+
+- **Backend / ML**: Python 3.11, FastAPI, FastF1, XGBoost, scikit-learn, pandas, NumPy
+- **Frontend**: React + Vite
+- **Data Sources**: FastF1 (historical & session data), OpenF1 API (live timing)
+- **Serving**: Uvicorn
 
 ---
 
-## 🏗️ Project Architecture
-```text
-FastF1 API -> Ingestor -> Feature Store -> Model Pipeline -> REST API -> React Frontend
+## 📦 Installation
+
+### Backend
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate        # Windows
+# source .venv/bin/activate   # macOS / Linux
+pip install -r requirements.txt
 ```
 
----
-## 📂 Folder Structure
+Copy `.env.example` to `.env` and fill in any required values.
 
-grid-oracle/
-├── frontend/                 # React/Vite frontend application
-├── src/                      # Main Python backend and ML source code
-│   ├── api/                  # FastAPI backend routes
-│   ├── config/               # Configuration files
-│   ├── data_ingestion/       # Data ingestion logic
-│   ├── feature_engineering/  # Feature generation logic
-│   ├── modeling/             # Model training and inference logic
-│   └── utils/                # Utility functions
-├── vercel_backend/           # Lightweight FastAPI backend for Vercel
-├── data/                     # Raw, processed, and feature data
-├── models/                   # Trained model files
-├── scripts/                  # Pipeline and utility scripts
-├── reports/                  # Reports and generated outputs
-├── docs/                     # Project documentation
-├── tests/                    # Test files
-├── requirements.txt          # Full Python backend and ML dependencies
-└── README.md
+### Frontend
 
-## 💻 How to Run Locally
-
-### Frontend Setup
 ```bash
 cd frontend
 npm install
-npm run dev
-```
-
-
-to this:
-
-```md
-### Heavy Backend Setup (Local Machine Learning Pipeline)
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn src.api.main:app --reload
 ```
 
 ---
 
-## ☁️ Deployment
+## 🚀 Running
 
-### Frontend Deployment
-The frontend is optimized and deployed on **Vercel**. It connects to the backend API via configured environment variables.
+### Backend API
 
-### Backend Deployment
-The current backend is deployed as a Serverless function on **Vercel** (`vercel_backend/`). Because Vercel has limits on memory, package size, and execution time, this version of the backend is lightweight. Advanced ML model inference and data ingestion require heavier resources and may be hosted on a dedicated platform (like Render, AWS, or GCP) in the future.
+```bash
+python scripts/run_api.py --port 8000 --reload
+```
+
+Or run Uvicorn directly:
+
+```bash
+uvicorn src.api.main:app --reload --port 8000
+```
+
+The API will be available at `http://127.0.0.1:8000` (interactive docs at `/docs`).
+
+### Frontend
+
+```bash
+cd frontend
+npm run dev
+```
 
 ---
 
 ## 🔌 API Endpoints
 
-### `GET /`
-Health check endpoint to verify that the backend is running.
-
-### `POST /predict`
-Executes a race prediction and returns the likely top 3 podium drivers based on current race weekend data. *(Note: Depending on the deployment environment, this may return placeholder data or limited results if the ML models are too heavy for serverless execution).*
-
----
-
-## 🚧 Current Limitations
-- **Hosting Limits**: The current Vercel backend cannot comfortably host heavy `.joblib` ML models or large `pandas` data processing due to strict serverless size and timeout constraints.
-- **Cold Starts**: Serverless architecture may introduce minor latency during the first API request.
-- **Real-Time Data**: Predictions rely on the timely availability of FastF1 telemetry.
+| Method | Path | Description |
+| ------ | ---- | ----------- |
+| `GET`  | `/health` | Health check. |
+| `GET`  | `/predict/race?season={year}&round={n}&stage={stage}` | Race outcome prediction. `stage` is one of `pre_weekend`, `post_qualifying`, `post_sprint`. |
+| `GET`  | `/predict/podium?season={year}&round={n}&stage={stage}` | Podium (top 3) prediction. |
+| `POST` | `/ingest/session` | Trigger background session ingestion and the pre-race pipeline. |
+| `GET`  | `/live/current/{season}/{round}` | Live race prediction, updated from OpenF1 timing. |
 
 ---
 
-## 🔮 Future Improvements
-- Migrate the heavy machine learning pipeline to a dedicated containerized service (e.g., Docker + AWS ECS / Google Cloud Run).
-- Introduce real-time live-race win probability updates.
-- Expand data visualization on the frontend (e.g., track map overlays, driver momentum graphs).
-- Incorporate official F1 news feeds for real-time penalty and weather adjustments.
+## 📂 Project Structure
+
+```text
+pitwall-ai-backend/
+├── frontend/        # React + Vite frontend (live timing leaderboard + prediction UI)
+├── src/             # Backend and ML source code
+│   └── api/         # FastAPI app, live prediction router, prediction service
+├── scripts/         # Training, ingestion, feature-build, and run scripts
+├── models/          # Trained model artifacts (.joblib, git-ignored)
+├── data/            # Raw, processed, and feature data
+├── reports/         # Generated reports and outputs
+├── tests/           # Test suite
+├── requirements.txt # Python dependencies
+└── README.md
+```
+
+---
 
 ## 👤 Author
-**Nikhil Reddy**
-- [GitHub Profile](https://github.com/Nikhil6750)
+
+**Nikhil Reddy** — [GitHub](https://github.com/Nikhil6750)
