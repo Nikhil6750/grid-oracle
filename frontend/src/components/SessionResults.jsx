@@ -16,10 +16,10 @@ async function fetchQualifying(season, round) {
         driver: r.Driver.code,
         name: `${r.Driver.givenName.charAt(0)}. ${r.Driver.familyName}`,
         team: r.Constructor.name,
-        q1: r.Q1 || 'â€”',
-        q2: r.Q2 || 'â€”',
-        q3: r.Q3 || 'â€”',
-        bestTime: r.Q3 || r.Q2 || r.Q1 || 'â€”',
+        q1: r.Q1 || '—',
+        q2: r.Q2 || '—',
+        q3: r.Q3 || '—',
+        bestTime: r.Q3 || r.Q2 || r.Q1 || '—',
       }))
     };
   } catch { return null; }
@@ -74,7 +74,7 @@ function SessionResults({ season = '2026', round = '6' }) {
     <section className="pred-panel">
       <div className="pred-panel-inner">
         <div className="pred-head">
-          <h2 className="pred-title">SESSION <em>â€” RESULTS</em></h2>
+          <h2 className="pred-title">SESSION <em>— RESULTS</em></h2>
         </div>
         <div className="pred-result">
           <div className="skeleton-box" style={{ width: '60%' }}></div>
@@ -89,7 +89,7 @@ function SessionResults({ season = '2026', round = '6' }) {
     <section className="pred-panel">
       <div className="pred-panel-inner">
         <div className="pred-head">
-          <h2 className="pred-title">SESSION <em>â€” RESULTS</em></h2>
+          <h2 className="pred-title">SESSION <em>— RESULTS</em></h2>
         </div>
         <div style={{ color: 'var(--ink-3)', fontFamily: "'Inter', sans-serif", fontSize: '13px', padding: '20px 0' }}>
           No session results available yet. Check back after qualifying.

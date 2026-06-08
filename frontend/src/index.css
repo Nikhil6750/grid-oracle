@@ -1,111 +1,233 @@
+/* ============================================================================
+   PITWALL AI · DESIGN TOKENS + RESET + MOTION
+   Dark glassmorphism F1 system. Loaded via @import in styles/globals.css.
+   ----------------------------------------------------------------------------
+   Layer 1 of 3:  index.css  → tokens, reset, base elements, keyframes
+                  App.css    → page shell + section layout
+                  globals.css→ component styles
+   ============================================================================ */
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* ---- Surfaces -------------------------------------------------------- */
+  --bg-primary:    #080808;
+  --bg-secondary:  #0f0f0f;
+  --bg-elevated:   #141417;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* ---- Glass ----------------------------------------------------------- */
+  --glass:           rgba(255, 255, 255, 0.04);
+  --glass-hover:     rgba(255, 255, 255, 0.07);
+  --glass-border:    rgba(255, 255, 255, 0.08);
+  --glass-border-hi: rgba(255, 255, 255, 0.14);
+  --glass-blur:      24px;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* ---- Accents --------------------------------------------------------- */
+  --accent-red:     #e10600;
+  --accent-red-hot: #ff1e00;
+  --accent-gold:    #d4a017;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  /* ---- Text ------------------------------------------------------------ */
+  --text-primary:   #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.62);
+  --text-tertiary:  rgba(255, 255, 255, 0.45);
+  --rule:           rgba(255, 255, 255, 0.08);
+
+  /* ---- Compatibility aliases ------------------------------------------- *
+   * Existing component inline styles reference these older token names.
+   * Remapped here onto the dark palette so every surface stays on-theme.  */
+  --ink:        #ffffff;
+  --ink-1:      #ffffff;
+  --ink-2:      rgba(255, 255, 255, 0.62);
+  --ink-3:      rgba(255, 255, 255, 0.45);
+  --paper:      rgba(255, 255, 255, 0.05);
+  --paper-3:    rgba(255, 255, 255, 0.10);
+  --rule-light: rgba(255, 255, 255, 0.08);
+  --gold:       #d4a017;
+  --aston:      #00d2be;   /* telemetry teal — "good/connected/green" status  */
+  --racing:     #e10600;   /* F1 red — alerts / offline                       */
+
+  /* ---- Constructor colours (2026 grid) --------------------------------- */
+  --mercedes:    #00d2be;
+  --ferrari:     #ff2800;
+  --mclaren:     #ff8000;
+  --redbull:     #3671c6;
+  --alpine:      #0093cc;
+  --haas:        #b6babd;
+  --racingbulls: #6692ff;
+  --williams:    #64c4ff;
+  --sauber:      #52e252;
+
+  /* ---- Track-status colours ------------------------------------------- */
+  --status-green: #00d2be;
+  --status-sc:    #ffd700;
+  --status-vsc:   #ff8c00;
+  --status-red:   #e10600;
+
+  /* ---- Type ------------------------------------------------------------ */
+  --font-display: 'Orbitron', 'Arial Narrow', sans-serif;
+  --font-serif:   'Playfair Display', Georgia, serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+  /* ---- Layout ---------------------------------------------------------- */
+  --maxw: 1440px;
+  --pad-x: clamp(20px, 5vw, 40px);
+  --pad-y: clamp(32px, 5vw, 48px);
+  --radius: 16px;
+  --radius-sm: 10px;
+
+  /* ---- Motion ---------------------------------------------------------- */
+  --ease:      cubic-bezier(0.22, 1, 0.36, 1);   /* ease-out-quint           */
+  --ease-expo: cubic-bezier(0.16, 1, 0.30, 1);
+
+  /* ---- Z-scale --------------------------------------------------------- */
+  --z-base:    0;
+  --z-raised:  1;
+  --z-sticky:  100;
+  --z-overlay: 1000;
+  --z-toast:   1100;
+
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+/* ============================================================================
+   RESET
+   ============================================================================ */
+*, *::before, *::after { box-sizing: border-box; }
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+* { margin: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  background: var(--bg-primary);
 }
 
 body {
   margin: 0;
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+  text-align: left;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+
+  /* Ambient depth: two faint red pools + a fine F1 grid wash. */
+  background-image:
+    radial-gradient(900px 600px at 82% -8%, rgba(225, 6, 0, 0.10), transparent 60%),
+    radial-gradient(800px 700px at -10% 18%, rgba(225, 6, 0, 0.045), transparent 55%);
+  background-attachment: fixed;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+input, select { font: inherit; }
+em { font-style: italic; }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
+::selection { background: var(--accent-red); color: #fff; }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
+:focus-visible {
+  outline: 2px solid var(--accent-red);
+  outline-offset: 3px;
   border-radius: 4px;
-  color: var(--text-h);
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+/* Slim, on-theme scrollbars */
+* { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.16) transparent; }
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.14);
+  border-radius: 99px;
+}
+*::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.26); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ============================================================================
+   KEYFRAMES
+   ============================================================================ */
+
+/* Scroll reveal — resting state is fully visible; the entrance only plays
+   forward from an offset, so no-JS / reduced-motion renders are never blank. */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Loading shimmer */
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+
+/* LIVE badge breath */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+/* Status dot ping */
+@keyframes pulseDot {
+  0%   { box-shadow: 0 0 0 0 rgba(225, 6, 0, 0.55); }
+  70%  { box-shadow: 0 0 0 7px rgba(225, 6, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(225, 6, 0, 0); }
+}
+
+/* Hero speed lines — a streak sweeping across the fold */
+@keyframes streak {
+  0%   { transform: translateX(-110%); opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: translateX(110%); opacity: 0; }
+}
+
+/* Marquee ticker */
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* First-load rise for above-the-fold blocks */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============================================================================
+   SCROLL REVEAL  (driven by IntersectionObserver in App.jsx)
+   Default = fully visible. The hidden start-state is gated behind `html.reveal-on`,
+   which the observer adds only when JS runs — so no-JS renders never hide content.
+   Driven by a transition (not a keyframe) so non-animating renderers still apply
+   the final visible state the instant `.in-view` is added.
+   ============================================================================ */
+[data-reveal] {
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+html.reveal-on [data-reveal]:not(.in-view) {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

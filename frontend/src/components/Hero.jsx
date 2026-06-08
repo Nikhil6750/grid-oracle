@@ -20,7 +20,7 @@ function Hero() {
       <span className="speed-line"></span>
       <span className="speed-line"></span>
 
-      <div className="hero-top">
+      <div className="hero-top" data-reveal>
         <div className="brand-eyebrow">
           <span className="checker-flag"></span>
           <span>Personal Edition · F1 2026</span>
@@ -31,7 +31,7 @@ function Hero() {
         </div>
       </div>
 
-      <div className="title-wrap">
+      <div className="title-wrap" data-reveal>
         <h1 className="hero-title">
           <span className="line1"><span>Nikhil's</span></span>
           <span className="line2"><span>Pit Wall.</span></span>
@@ -39,7 +39,7 @@ function Hero() {
         <div className="title-underline"></div>
       </div>
 
-      <div className="hero-sub">
+      <div className="hero-sub" data-reveal>
         <span className="live-badge">Live Edition</span>
         <span>Drivers · Constructors · Paddock · Calendar</span>
       </div>
