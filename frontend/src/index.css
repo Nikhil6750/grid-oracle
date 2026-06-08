@@ -1,179 +1,111 @@
-/* ============================================================================
-   PITWALL AI · DESIGN TOKENS + RESET + MOTION
-   Gen Z minimal glassmorphism F1 system.
-   ============================================================================ */
-
 :root {
-  /* ---- Surfaces (Strictly #0a0a0a background) -------------------------- */
-  --bg-primary:    #0a0a0a;
-  --bg-secondary:  #0a0a0a;
-  --bg-elevated:   #0a0a0a;
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  /* ---- Glassmorphism --------------------------------------------------- */
-  --glass:           rgba(255, 255, 255, 0.03);
-  --glass-hover:     rgba(255, 255, 255, 0.05);
-  --glass-border:    rgba(255, 255, 255, 0.06);
-  --glass-border-hi: rgba(255, 255, 255, 0.12);
-  --glass-blur:      20px;
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
 
-  /* ---- Accents --------------------------------------------------------- */
-  --accent-red:     #e10600;
-  --accent-red-hot: #e10600;
-  --accent-gold:    #ffffff; /* Minimal white hierarchy */
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-  /* ---- Text ------------------------------------------------------------ */
-  --text-primary:   #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.6);
-  --text-tertiary:  rgba(255, 255, 255, 0.4);
-  --rule:           rgba(255, 255, 255, 0.06);
-
-  /* ---- Compatibility Aliases ------------------------------------------- */
-  --ink:        #ffffff;
-  --ink-1:      #ffffff;
-  --ink-2:      rgba(255, 255, 255, 0.6);
-  --ink-3:      rgba(255, 255, 255, 0.4);
-  --paper:      rgba(255, 255, 255, 0.03);
-  --paper-3:    rgba(255, 255, 255, 0.06);
-  --rule-light: rgba(255, 255, 255, 0.06);
-  --gold:       #ffffff;
-  --aston:      #ffffff; /* Muted to white */
-  --racing:     #e10600;
-
-  /* ---- Constructor Colours (Retained for Standing Accents) ----------- */
-  --mercedes:    #00d2be;
-  --ferrari:     #ff2800;
-  --mclaren:     #ff8000;
-  --redbull:     #3671c6;
-  --alpine:      #0093cc;
-  --haas:        #b6babd;
-  --aston_martin:#00d2be;
-  --aston:       #00d2be;
-  --williams:    #64c4ff;
-  --racingbulls: #6692ff;
-  --sauber:      #52e252;
-
-  /* ---- Track Status Colors -------------------------------------------- */
-  --status-green: #ffffff;
-  --status-sc:    #ffffff;
-  --status-vsc:   #ffffff;
-  --status-red:   #e10600;
-
-  /* ---- Typography (Orbitron for big text only, Inter for everything else) */
-  --font-display: 'Orbitron', 'Inter', sans-serif;
-  --font-serif:   'Inter', sans-serif; /* Mapped serif to Inter */
-  --font-mono:    'JetBrains Mono', monospace;
-  --font-body:    'Inter', sans-serif;
-
-  /* ---- Layout ---------------------------------------------------------- */
-  --maxw: 1440px;
-  --pad-x: clamp(20px, 5vw, 40px);
-  --pad-y: clamp(48px, 6vw, 80px); /* Increased for breathing room */
-  --radius: 12px;
-  --radius-sm: 8px;
-
-  /* ---- Motion ---------------------------------------------------------- */
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-
-  /* ---- Z-scale --------------------------------------------------------- */
-  --z-base:    0;
-  --z-raised:  1;
-  --z-sticky:  100;
-  --z-overlay: 1000;
-  --z-toast:   1100;
-
-  color-scheme: dark;
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
 }
 
-/* ============================================================================
-   RESET & BASE
-   ============================================================================ */
-*, *::before, *::after { box-sizing: border-box; }
-* { margin: 0; padding: 0; }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
 
-html {
-  scroll-behavior: smooth;
-  background: var(--bg-primary);
-  -webkit-text-size-adjust: 100%;
+  #social .button-icon {
+    filter: invert(1) brightness(2);
+  }
 }
 
 body {
+  margin: 0;
+}
+
+#root {
+  width: 1126px;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-inline: 1px solid var(--border);
   min-height: 100svh;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.6;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
-img, svg { display: block; max-width: 100%; }
-a { color: inherit; text-decoration: none; }
-button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
-input, select { font: inherit; }
-
-/* Custom selection */
-::selection { background: var(--accent-red); color: #ffffff; }
-
-:focus-visible {
-  outline: 1px solid var(--accent-red);
-  outline-offset: 3px;
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
 }
 
-/* Minimal Scrollbars */
-* { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.1) transparent; }
-*::-webkit-scrollbar { width: 5px; height: 5px; }
-*::-webkit-scrollbar-track { background: transparent; }
-*::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 99px;
-}
-*::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
-
-/* ============================================================================
-   ANIMATIONS & SCROLL REVEAL
-   ============================================================================ */
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.4; }
-}
-
-@keyframes streak {
-  0%   { transform: translateX(-100%); opacity: 0; }
-  10%  { opacity: 0.08; }
-  90%  { opacity: 0.08; }
-  100% { transform: translateX(100%); opacity: 0; }
-}
-
-@keyframes tickerScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-@keyframes shimmer {
-  from { background-position: -200% 0; }
-  to   { background-position: 200% 0; }
-}
-
-/* Scroll reveal (0.6s ease duration, translateY 20px -> 0) */
-[data-reveal] {
-  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
-}
-
-html.reveal-on [data-reveal]:not(.in-view) {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
   }
+}
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+p {
+  margin: 0;
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
 }

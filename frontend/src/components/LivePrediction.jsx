@@ -174,17 +174,14 @@ function LivePrediction() {
   const badge = !connected && !usingRest
     ? { label: 'OFFLINE', color: 'var(--ink-3)' }
     : sessionStatus === 'LIVE'
-      ? { label: 'LIVE', color: 'var(--accent-red)' }
+      ? { label: 'LIVE', color: 'var(--gold)' }
       : sessionStatus === 'WAITING'
-        ? { label: 'WAITING', color: '#ffb020' }
+        ? { label: 'WAITING', color: 'var(--ink-3)' }
         : sessionStatus === 'FINISHED'
           ? { label: 'FINISHED', color: 'var(--aston)' }
           : { label: 'REPLAY', color: 'var(--aston)' };
   const trackStatus = snapshot?.track_status || 'GREEN';
-  const trackStatusColor = trackStatus === 'SC' ? 'var(--status-sc)'
-    : trackStatus === 'VSC' ? 'var(--status-vsc)'
-    : trackStatus === 'RED' ? 'var(--status-red)'
-    : 'var(--status-green)';
+  const trackStatusColor = trackStatus === 'SC' ? 'var(--gold)' : trackStatus === 'VSC' ? 'var(--paper-3)' : 'var(--aston)';
   const secondsSinceUpdate = lastUpdatedAt ? Math.max(0, Math.floor((now - lastUpdatedAt) / 1000)) : null;
 
   return (
