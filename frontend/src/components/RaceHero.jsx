@@ -67,10 +67,41 @@ function RaceHero() {
           <div className="race-right">
             <div className="countdown-label">Lights Out In</div>
             <div className="countdown">
-              <div className="cd-cell"><div className="cd-num">{cd.d}</div><div className="cd-label">Days</div></div>
-              <div className="cd-cell"><div className="cd-num">{cd.h}</div><div className="cd-label">Hours</div></div>
-              <div className="cd-cell"><div className="cd-num">{cd.m}</div><div className="cd-label">Mins</div></div>
-              <div className="cd-cell"><div className="cd-num">{cd.s}</div><div className="cd-label">Secs</div></div>
+              <div className="cd-group">
+                <div className="cd-digits">
+                  {cd.d.split('').map((char, idx) => (
+                    <span key={idx} className="cd-digit">{char}</span>
+                  ))}
+                </div>
+                <div className="cd-label">Days</div>
+              </div>
+              <span className="cd-sep">:</span>
+              <div className="cd-group">
+                <div className="cd-digits">
+                  {cd.h.split('').map((char, idx) => (
+                    <span key={idx} className="cd-digit">{char}</span>
+                  ))}
+                </div>
+                <div className="cd-label">Hours</div>
+              </div>
+              <span className="cd-sep">:</span>
+              <div className="cd-group">
+                <div className="cd-digits">
+                  {cd.m.split('').map((char, idx) => (
+                    <span key={idx} className="cd-digit">{char}</span>
+                  ))}
+                </div>
+                <div className="cd-label">Mins</div>
+              </div>
+              <span className="cd-sep">:</span>
+              <div className="cd-group">
+                <div className="cd-digits">
+                  {cd.s.split('').map((char, idx) => (
+                    <span key={idx} className="cd-digit">{char}</span>
+                  ))}
+                </div>
+                <div className="cd-label">Secs</div>
+              </div>
             </div>
           </div>
         </div>

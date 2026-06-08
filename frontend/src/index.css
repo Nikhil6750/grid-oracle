@@ -1,83 +1,78 @@
 /* ============================================================================
    PITWALL AI · DESIGN TOKENS + RESET + MOTION
-   Dark glassmorphism F1 system. Loaded via @import in styles/globals.css.
-   ----------------------------------------------------------------------------
-   Layer 1 of 3:  index.css  → tokens, reset, base elements, keyframes
-                  App.css    → page shell + section layout
-                  globals.css→ component styles
+   Gen Z minimal glassmorphism F1 system.
    ============================================================================ */
 
 :root {
-  /* ---- Surfaces -------------------------------------------------------- */
-  --bg-primary:    #080808;
-  --bg-secondary:  #0f0f0f;
-  --bg-elevated:   #141417;
+  /* ---- Surfaces (Strictly #0a0a0a background) -------------------------- */
+  --bg-primary:    #0a0a0a;
+  --bg-secondary:  #0a0a0a;
+  --bg-elevated:   #0a0a0a;
 
-  /* ---- Glass ----------------------------------------------------------- */
-  --glass:           rgba(255, 255, 255, 0.04);
-  --glass-hover:     rgba(255, 255, 255, 0.07);
-  --glass-border:    rgba(255, 255, 255, 0.08);
-  --glass-border-hi: rgba(255, 255, 255, 0.14);
-  --glass-blur:      24px;
+  /* ---- Glassmorphism --------------------------------------------------- */
+  --glass:           rgba(255, 255, 255, 0.03);
+  --glass-hover:     rgba(255, 255, 255, 0.05);
+  --glass-border:    rgba(255, 255, 255, 0.06);
+  --glass-border-hi: rgba(255, 255, 255, 0.12);
+  --glass-blur:      20px;
 
   /* ---- Accents --------------------------------------------------------- */
   --accent-red:     #e10600;
-  --accent-red-hot: #ff1e00;
-  --accent-gold:    #d4a017;
+  --accent-red-hot: #e10600;
+  --accent-gold:    #ffffff; /* Minimal white hierarchy */
 
   /* ---- Text ------------------------------------------------------------ */
   --text-primary:   #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.62);
-  --text-tertiary:  rgba(255, 255, 255, 0.45);
-  --rule:           rgba(255, 255, 255, 0.08);
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --text-tertiary:  rgba(255, 255, 255, 0.4);
+  --rule:           rgba(255, 255, 255, 0.06);
 
-  /* ---- Compatibility aliases ------------------------------------------- *
-   * Existing component inline styles reference these older token names.
-   * Remapped here onto the dark palette so every surface stays on-theme.  */
+  /* ---- Compatibility Aliases ------------------------------------------- */
   --ink:        #ffffff;
   --ink-1:      #ffffff;
-  --ink-2:      rgba(255, 255, 255, 0.62);
-  --ink-3:      rgba(255, 255, 255, 0.45);
-  --paper:      rgba(255, 255, 255, 0.05);
-  --paper-3:    rgba(255, 255, 255, 0.10);
-  --rule-light: rgba(255, 255, 255, 0.08);
-  --gold:       #d4a017;
-  --aston:      #00d2be;   /* telemetry teal — "good/connected/green" status  */
-  --racing:     #e10600;   /* F1 red — alerts / offline                       */
+  --ink-2:      rgba(255, 255, 255, 0.6);
+  --ink-3:      rgba(255, 255, 255, 0.4);
+  --paper:      rgba(255, 255, 255, 0.03);
+  --paper-3:    rgba(255, 255, 255, 0.06);
+  --rule-light: rgba(255, 255, 255, 0.06);
+  --gold:       #ffffff;
+  --aston:      #ffffff; /* Muted to white */
+  --racing:     #e10600;
 
-  /* ---- Constructor colours (2026 grid) --------------------------------- */
+  /* ---- Constructor Colours (Retained for Standing Accents) ----------- */
   --mercedes:    #00d2be;
   --ferrari:     #ff2800;
   --mclaren:     #ff8000;
   --redbull:     #3671c6;
   --alpine:      #0093cc;
   --haas:        #b6babd;
-  --racingbulls: #6692ff;
+  --aston_martin:#00d2be;
+  --aston:       #00d2be;
   --williams:    #64c4ff;
+  --racingbulls: #6692ff;
   --sauber:      #52e252;
 
-  /* ---- Track-status colours ------------------------------------------- */
-  --status-green: #00d2be;
-  --status-sc:    #ffd700;
-  --status-vsc:   #ff8c00;
+  /* ---- Track Status Colors -------------------------------------------- */
+  --status-green: #ffffff;
+  --status-sc:    #ffffff;
+  --status-vsc:   #ffffff;
   --status-red:   #e10600;
 
-  /* ---- Type ------------------------------------------------------------ */
-  --font-display: 'Orbitron', 'Arial Narrow', sans-serif;
-  --font-serif:   'Playfair Display', Georgia, serif;
-  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
-  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  /* ---- Typography (Orbitron for big text only, Inter for everything else) */
+  --font-display: 'Orbitron', 'Inter', sans-serif;
+  --font-serif:   'Inter', sans-serif; /* Mapped serif to Inter */
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-body:    'Inter', sans-serif;
 
   /* ---- Layout ---------------------------------------------------------- */
   --maxw: 1440px;
   --pad-x: clamp(20px, 5vw, 40px);
-  --pad-y: clamp(32px, 5vw, 48px);
-  --radius: 16px;
-  --radius-sm: 10px;
+  --pad-y: clamp(48px, 6vw, 80px); /* Increased for breathing room */
+  --radius: 12px;
+  --radius-sm: 8px;
 
   /* ---- Motion ---------------------------------------------------------- */
-  --ease:      cubic-bezier(0.22, 1, 0.36, 1);   /* ease-out-quint           */
-  --ease-expo: cubic-bezier(0.16, 1, 0.30, 1);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* ---- Z-scale --------------------------------------------------------- */
   --z-base:    0;
@@ -90,136 +85,87 @@
 }
 
 /* ============================================================================
-   RESET
+   RESET & BASE
    ============================================================================ */
 *, *::before, *::after { box-sizing: border-box; }
-
-* { margin: 0; }
+* { margin: 0; padding: 0; }
 
 html {
   scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
   background: var(--bg-primary);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  margin: 0;
   min-height: 100svh;
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.6;
-  letter-spacing: 0;
-  text-align: left;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-
-  /* Ambient depth: two faint red pools + a fine F1 grid wash. */
-  background-image:
-    radial-gradient(900px 600px at 82% -8%, rgba(225, 6, 0, 0.10), transparent 60%),
-    radial-gradient(800px 700px at -10% 18%, rgba(225, 6, 0, 0.045), transparent 55%);
-  background-attachment: fixed;
 }
 
 img, svg { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 input, select { font: inherit; }
-em { font-style: italic; }
 
-::selection { background: var(--accent-red); color: #fff; }
+/* Custom selection */
+::selection { background: var(--accent-red); color: #ffffff; }
 
 :focus-visible {
-  outline: 2px solid var(--accent-red);
+  outline: 1px solid var(--accent-red);
   outline-offset: 3px;
-  border-radius: 4px;
 }
 
-/* Slim, on-theme scrollbars */
-* { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.16) transparent; }
-*::-webkit-scrollbar { width: 8px; height: 8px; }
+/* Minimal Scrollbars */
+* { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.1) transparent; }
+*::-webkit-scrollbar { width: 5px; height: 5px; }
 *::-webkit-scrollbar-track { background: transparent; }
 *::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.14);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 99px;
 }
-*::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.26); }
-
-.sr-only {
-  position: absolute; width: 1px; height: 1px;
-  padding: 0; margin: -1px; overflow: hidden;
-  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-}
+*::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 
 /* ============================================================================
-   KEYFRAMES
+   ANIMATIONS & SCROLL REVEAL
    ============================================================================ */
 
-/* Scroll reveal — resting state is fully visible; the entrance only plays
-   forward from an offset, so no-JS / reduced-motion renders are never blank. */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Loading shimmer */
-@keyframes shimmer {
-  from { background-position: -200% 0; }
-  to   { background-position: 200% 0; }
-}
-
-/* LIVE badge breath */
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50%      { opacity: 0.4; }
 }
 
-/* Status dot ping */
-@keyframes pulseDot {
-  0%   { box-shadow: 0 0 0 0 rgba(225, 6, 0, 0.55); }
-  70%  { box-shadow: 0 0 0 7px rgba(225, 6, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(225, 6, 0, 0); }
-}
-
-/* Hero speed lines — a streak sweeping across the fold */
 @keyframes streak {
-  0%   { transform: translateX(-110%); opacity: 0; }
-  12%  { opacity: 1; }
-  88%  { opacity: 1; }
-  100% { transform: translateX(110%); opacity: 0; }
+  0%   { transform: translateX(-100%); opacity: 0; }
+  10%  { opacity: 0.08; }
+  90%  { opacity: 0.08; }
+  100% { transform: translateX(100%); opacity: 0; }
 }
 
-/* Marquee ticker */
 @keyframes tickerScroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
-/* First-load rise for above-the-fold blocks */
-@keyframes riseIn {
-  from { opacity: 0; transform: translateY(26px); }
-  to   { opacity: 1; transform: none; }
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ============================================================================
-   SCROLL REVEAL  (driven by IntersectionObserver in App.jsx)
-   Default = fully visible. The hidden start-state is gated behind `html.reveal-on`,
-   which the observer adds only when JS runs — so no-JS renders never hide content.
-   Driven by a transition (not a keyframe) so non-animating renderers still apply
-   the final visible state the instant `.in-view` is added.
-   ============================================================================ */
+/* Scroll reveal (0.6s ease duration, translateY 20px -> 0) */
 [data-reveal] {
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
 }
+
 html.reveal-on [data-reveal]:not(.in-view) {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(20px);
 }
 
 @media (prefers-reduced-motion: reduce) {

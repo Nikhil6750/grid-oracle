@@ -120,18 +120,25 @@ function PredictionPanel() {
               </div>
             </div>
 
-            <div className="podium-block" style={{ padding: '0 0 24px', border: 'none' }}>
+            <div className="podium-block">
               <div className="podium-head">Predicted Podium</div>
-              <div style={{ fontSize: '11px', color: 'var(--ink-3)', fontFamily: "'Inter', sans-serif", marginBottom: '12px' }}>
+              <div className="podium-sub">
                 Based on qualifying data · Post-Qualifying Stage · 2026 Canadian GP
               </div>
-              <div className="podium-list">
+              <div className="podium-list-minimal">
                 {result.podium_ranking && result.podium_ranking.slice(0,3).map((entry, i) => (
-                  <div key={i} className={`pod-row p${i+1}`}>
-                    <div className="pod-badge">P{i+1}</div>
-                    <div>
-                      <div className="pod-driver-name">
-                        {entry.driver} <span style={{ fontSize: '11px', color: 'var(--ink-3)', marginLeft: '8px' }}>{(entry.probability * 100).toFixed(1)}%</span>
+                  <div key={i} className="pod-row-minimal">
+                    <div className="pod-badge-minimal">
+                      <span className={`pod-dot p${i+1}`}></span>
+                      <span className="pod-badge-text">P{i+1}</span>
+                    </div>
+                    <div className="pod-info-minimal">
+                      <span className="pod-driver-name-minimal">{entry.driver}</span>
+                      <div className="pod-prob-wrapper">
+                        <div className="pod-prob-track">
+                          <div className="pod-prob-fill" style={{ width: `${(entry.probability * 100).toFixed(1)}%` }}></div>
+                        </div>
+                        <span className="pod-prob-pct">{(entry.probability * 100).toFixed(0)}%</span>
                       </div>
                     </div>
                   </div>

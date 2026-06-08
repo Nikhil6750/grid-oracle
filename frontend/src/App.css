@@ -1,6 +1,5 @@
 /* ============================================================================
-   PITWALL AI · PAGE SHELL + SECTION LAYOUT   (layer 2 of 3)
-   Imported by styles/globals.css. See index.css for the contract.
+   PITWALL AI · PAGE SHELL + SECTION LAYOUT
    ============================================================================ */
 
 #root {
@@ -11,18 +10,11 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-  /* faint vertical rules framing the editorial column on wide screens */
-  border-inline: 1px solid var(--rule);
-}
-
-@media (max-width: 1480px) {
-  #root { border-inline: none; }
+  background: var(--bg-primary);
 }
 
 /* ----------------------------------------------------------------------------
    Section rhythm
-   Every top-level band shares horizontal padding and a hairline divider so the
-   page reads as one continuous broadcast surface, not stacked cards.
    ---------------------------------------------------------------------------- */
 .hero,
 .race-hero,
@@ -44,29 +36,39 @@
 }
 
 /* ----------------------------------------------------------------------------
-   Three-column editorial grid: Standings · Calendar(×2) · Paddock
+   Three-column grid: Standings · Calendar · Paddock
    ---------------------------------------------------------------------------- */
-.main-section { padding-block: clamp(40px, 6vw, 72px); }
+.main-section { 
+  padding-block: clamp(48px, 8vw, 96px); 
+}
 
 .main-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(16px, 2vw, 24px);
+  gap: clamp(20px, 3vw, 32px);
   align-items: start;
 }
 
-/* Standings + Paddock take one column; Calendar spans two (set inline as
-   gridColumn:'span 2' in Calendar.jsx). */
-.main-grid > .col { grid-column: span 1; }
+.main-grid > .col { 
+  grid-column: span 1; 
+}
 
 @media (max-width: 1080px) {
-  .main-grid { grid-template-columns: repeat(2, 1fr); }
+  .main-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+  }
   .main-grid > .col,
-  .main-grid > .col[style] { grid-column: span 2 !important; }
+  .main-grid > .col[style] { 
+    grid-column: span 2 !important; 
+  }
 }
 
 @media (max-width: 640px) {
-  .main-grid { grid-template-columns: 1fr; }
+  .main-grid { 
+    grid-template-columns: 1fr; 
+  }
   .main-grid > .col,
-  .main-grid > .col[style] { grid-column: span 1 !important; }
+  .main-grid > .col[style] { 
+    grid-column: span 1 !important; 
+  }
 }
