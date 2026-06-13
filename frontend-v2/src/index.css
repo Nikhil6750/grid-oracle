@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* Core palette */
+  --bg: #080810;
+  --bg-2: #0d0d1f;
+  --surface: rgba(255,255,255,0.02);
+  --surface-hi: rgba(255,255,255,0.05);
+  --red: #e10600;
+  --red-hot: #ff2400;
+  --red-dim: rgba(225,6,0,0.15);
+  --red-glow: rgba(225,6,0,0.4);
+  --white: #ffffff;
+  --white-60: rgba(255,255,255,0.6);
+  --white-30: rgba(255,255,255,0.3);
+  --white-10: rgba(255,255,255,0.1);
+  --white-05: rgba(255,255,255,0.05);
+
+  /* Typography */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-condensed: 'Barlow Condensed', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Spacing */
+  --section-pad: clamp(60px, 8vw, 120px);
+  --card-pad: clamp(20px, 3vw, 40px);
+  --radius: 8px;
+  --radius-sm: 4px;
+
+  /* Glass */
+  --glass-bg: rgba(255,255,255,0.03);
+  --glass-border: rgba(255,255,255,0.07);
+  --glass-blur: blur(24px);
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.5),
+                  inset 0 1px 0 rgba(255,255,255,0.06);
+
+  /* Team Colors */
+  --team-mercedes: #00D2BE;
+  --team-ferrari: #DC0000;
+  --team-mclaren: #FF8700;
+  --team-redbull: #0600EF;
+  --team-alpine: #0090FF;
+  --team-haas: #FFFFFF;
+  --team-rb: #2B4562;
+  --team-gold: #d4a017;
+  --team-silver: #a0a0a0;
+  --team-bronze: #b06c30;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  background-image:
+    linear-gradient(rgba(225,6,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(225,6,0,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  background-attachment: fixed;
+  color: var(--white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+a:hover { opacity: 0.8; }
+
+/* --- FULLPAGE SNAP SECTIONS & LENIS --- */
+.snap-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
+
+.panel {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  /* Removed grid to allow components to manage their layout */
+}
+@media (max-width: 768px) {
+  .container { padding: 0 1rem; }
+}
+
+/* Universal glass card */
+.g-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  box-shadow: var(--glass-shadow);
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.g-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent, rgba(225,6,0,0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.g-card:hover {
+  border-color: rgba(225,6,0,0.2);
+  box-shadow: var(--glass-shadow),
+              0 0 40px rgba(225,6,0,0.06);
+  transform: translateY(-2px);
+}
+.g-card:hover::before { opacity: 1; }
+
+/* Red accent line */
+.red-rule {
+  height: 1px;
+  background: linear-gradient(90deg,
+    var(--red), rgba(225,6,0,0.3), transparent);
+  margin-bottom: 40px;
+  box-shadow: 0 0 8px rgba(225,6,0,0.3);
+}
+
+/* Section label */
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--red-dim), transparent);
+  max-width: 80px;
+}
+
+/* Section title */
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 6vw, 80px);
+  line-height: 0.9;
+  color: var(--white);
+  margin: 0 0 40px;
+  letter-spacing: 0.02em;
+  font-weight: normal;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  will-change: opacity, transform;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Splash screen dependencies */
+.splash-root {
+  position: fixed; inset: 0; z-index: 9999; background: var(--bg);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.splash-bg-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(225,6,0,0.15) 0%, transparent 60%); pointer-events: none;
+}
+.splash-circuit { position: absolute; inset: 0; width: 100%; height: 100%; filter: url(#glow); }
+.circuit-path { stroke-dasharray: 2000; stroke-dashoffset: 2000; filter: url(#glow); }
+.circuit-node { opacity: 0; filter: url(#glow); }
+.splash-logo { position: relative; z-index: 10; opacity: 0; }
+.splash-f1-img { width: min(400px, 60vw); height: auto; filter: sepia(1) saturate(8) hue-rotate(320deg) brightness(0.9) drop-shadow(0 0 30px rgba(225,6,0,0.8)); }
+
+/* Ticker dependencies */
+.ticker-wrapper {
+  background: var(--red); color: #fff; overflow: hidden; white-space: nowrap; padding: 0.5rem 0; border-bottom: 1px solid var(--red-glow); position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+}
+.ticker-content { display: flex; gap: 4rem; width: fit-content; }
+.ticker-item { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; font-weight: 700; text-transform: uppercase; }
+
+/* Utilities */
+.text-dim { color: rgba(255,255,255,0.4); }
+.team-mercedes { color: var(--team-mercedes); }
+.team-ferrari { color: var(--team-ferrari); }
+.team-mclaren { color: var(--team-mclaren); }
+.team-redbull { color: var(--team-redbull); }
+.team-alpine { color: var(--team-alpine); }
+.team-haas { color: var(--team-haas); }
+.team-rb { color: var(--team-rb); }
+
+.bg-mercedes { background-color: var(--team-mercedes); }
+.bg-ferrari { background-color: var(--team-ferrari); }
+.bg-mclaren { background-color: var(--team-mclaren); }
+.bg-redbull { background-color: var(--team-redbull); }
+.bg-alpine { background-color: var(--team-alpine); }
+.bg-haas { background-color: var(--team-haas); }
+.bg-rb { background-color: var(--team-rb); }
