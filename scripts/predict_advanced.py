@@ -5,6 +5,7 @@ Uses shared prediction_service for inference logic.
 import sys
 from pathlib import Path
 import argparse
+import pandas as pd
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(str(ROOT_DIR))
@@ -58,6 +59,69 @@ def main():
 
     print(f"\n{'='*60}\n")
     print(f"Saved prediction records to {result['prediction_records_path']}")
+
+    # --- Unified Prediction ---
+    preds_df = pd.read_parquet(ROOT_DIR / result["prediction_records_path"])
+    preds_df = preds_df[
+        (preds_df["season"] == args.season)
+        & (preds_df["round"] == args.round)
+        & (preds_df["prediction_stage"] == args.stage)
+    ].drop_duplicates(subset=["driver_code", "task"], keep="last")
+
+    finish_df = preds_df[preds_df["task"] == "race_finish_position"][
+        ["driver_code", "prediction"]
+    ].rename(columns={"prediction": "race_finish_pred"})
+    podium_df = preds_df[preds_df["task"] == "podium_class"][
+        ["driver_code", "probability"]
+    ].rename(columns={"probability": "podium_proba"})
+
+    race_features = pd.read_parquet(ROOT_DIR / "data/features/race_features.parquet")
+    quali_df = race_features[
+        (race_features["season"] == args.season)
+        & (race_features["round"] == args.round)
+        & (race_features["prediction_stage"] == args.stage)
+    ][["driver_code", "quali_gap_to_pole_s"]]
+
+    unified_df = finish_df.merge(podium_df, on="driver_code", how="inner").merge(
+        quali_df, on="driver_code", how="left"
+    )
+
+    print(f"\n{'='*60}")
+    print(f"  UNIFIED PREDICTION (Top 5)")
+    print(f"  35% Race Finish + 40% Podium Probability + 25% Qualifying")
+    print(f"{'='*60}")
+
+    if unified_df.empty:
+        print("  Insufficient data: race_finish_position and/or podium_class")
+        print("  predictions not available for this season/round/stage.")
+    else:
+        n = len(unified_df)
+        denom = max(n - 1, 1)
+
+        finish_score = (1 - (unified_df["race_finish_pred"] - 1) / denom).clip(0, 1)
+
+        has_quali = unified_df["quali_gap_to_pole_s"].notna().any()
+        grid_rank = unified_df["quali_gap_to_pole_s"].rank(method="min", na_option="bottom")
+        quali_score = (1 - (grid_rank - 1) / denom).clip(0, 1)
+
+        unified_df["grid"] = grid_rank.astype(int)
+        unified_df["unified_score"] = (
+            0.35 * finish_score + 0.40 * unified_df["podium_proba"] + 0.25 * quali_score
+        )
+
+        unified_df = unified_df.sort_values("unified_score", ascending=False).reset_index(drop=True)
+
+        bar_width = 20
+        for _, row in unified_df.head(5).iterrows():
+            grid_str = f"P{row['grid']}" if has_quali else "N/A"
+            bar_len = int(round(row["unified_score"] * bar_width))
+            bar = "#" * bar_len + "-" * (bar_width - bar_len)
+            print(
+                f"  {row['driver_code']:<4} Grid: {grid_str:<4} "
+                f"Score: {row['unified_score']:.3f}  Podium: {row['podium_proba']:.1%}  {bar}"
+            )
+
+    print(f"{'='*60}\n")
 
 
 if __name__ == "__main__":

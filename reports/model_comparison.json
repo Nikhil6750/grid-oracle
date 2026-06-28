@@ -272,7 +272,7 @@
     "race_finish_post_qualifying": {
         "val": {
             "mae": {
-                "advanced": 3.2425816730026202,
+                "advanced": 3.2425816730026207,
                 "baseline": 3.768496420047733,
                 "improved": true
             },
@@ -299,7 +299,7 @@
                 "improved": false
             },
             "rmse": {
-                "advanced": 4.569007830814697,
+                "advanced": 4.569007830814696,
                 "baseline": 3.8329791707375964,
                 "improved": false
             },
